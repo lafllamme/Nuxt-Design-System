@@ -1,0 +1,18 @@
+services:
+  nuxt-ds:
+    image: ${IMAGE}
+    container_name: nuxt-ds
+    build:
+      context: .
+      dockerfile: Bun.Dockerfile
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+      - "80:3000"
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    restart: always
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - HOST=${HOST}

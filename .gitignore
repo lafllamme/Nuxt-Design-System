@@ -1,0 +1,7 @@
+!/.idea/
+
+# add .env files
+.env
+
+#add node_modules
+node_modules
