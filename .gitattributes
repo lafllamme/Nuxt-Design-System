@@ -1,0 +1,19 @@
+# Set language for different files in the repository
+*.ts linguist-language=TypeScript
+*.vue linguist-language=Vue
+*.scss linguist-language=SCSS
+*.sh linguist-language=Shell
+*.yml linguist-language=Dockerfile
+Dockerfile linguist-language=Dockerfile
+Makefile linguist-language=Makefile
+
+# Custom labels for framework-specific files
+*.nuxt linguist-language=Nuxt
+.nuxt/* linguist-language=Nuxt
+*.bun linguist-language=Bun
+
+# Ignore dependencies and build files to avoid skewing language stats
+node_modules/* linguist-vendored
+dist/* linguist-vendored
+coverage/* linguist-vendored
+.env linguist-vendored
