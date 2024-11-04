@@ -1,0 +1,11 @@
+# Exclude node_modules to prevent copying from host
+app/node_modules
+app/dist
+
+# Exclude other unnecessary files and directories
+node_modules
+dist
+.git
+.env
+#Dockerfiles
+# scripts should be included since entrypoint.sh is needed
