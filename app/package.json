@@ -13,21 +13,24 @@
   },
   "dependencies": {
     "@nuxtjs/storybook": "^8.3.2",
+    "@unocss/reset": "^0.64.0",
     "nuxt": "^3.13.2",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@types/node": "^18.17.5",
-    "storybook": "8.4.2",
-    "@storybook/vue3": "8.4.2",
     "@storybook-vue/nuxt": "0.2.6",
-    "@storybook/addon-links": "8.4.2",
-    "@storybook/builder-vite": "8.4.2",
     "@storybook/addon-essentials": "8.4.2",
     "@storybook/addon-interactions": "8.4.2",
+    "@storybook/addon-links": "8.4.2",
+    "@storybook/blocks": "8.4.2",
+    "@storybook/builder-vite": "8.4.2",
     "@storybook/test": "8.4.2",
-    "@storybook/blocks": "8.4.2"
+    "@storybook/vue3": "8.4.2",
+    "@types/node": "^18.17.5",
+    "@unocss/nuxt": "^0.64.0",
+    "storybook": "8.4.2",
+    "unocss": "^0.64.0"
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }
