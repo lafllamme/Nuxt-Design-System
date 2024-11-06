@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook-vue/nuxt";
+import UnoCSS from 'unocss/vite'
 
 const config: StorybookConfig = {
   stories: [
@@ -19,6 +20,7 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   vite: {
+    plugins: [UnoCSS()],
     optimizeDeps: {
       include: ['storybook > @storybook/core > jsdoc-type-pratt-parser'],
     },
