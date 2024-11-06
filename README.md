@@ -126,9 +126,7 @@ If the `app` directory is empty, the container will start and wait, allowing you
 Use the Makefile for easy management of Docker services:
 
 | Command      | Description                                         |
-|--------------|-----------------------------------------------------
-
-|
+|--------------|-----------------------------------------------------|
 | `make build` | Build the Docker images                             |
 | `make up`    | Start the services in detached mode                 |
 | `make upb`   | Start with build                                    |
@@ -233,4 +231,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ---
 
 <p align="center">Made with ❤️ by <a href="https://github.com/lafllamme">lafllamme</a></p>
-```
+
