@@ -1,5 +1,4 @@
 import type { StorybookConfig } from "@storybook-vue/nuxt";
-
 const config: StorybookConfig = {
   stories: [
     "../stories/**/*.mdx",
@@ -18,6 +17,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  // @ts-ignore
   vite: {
     // plugins: [],
     optimizeDeps: {

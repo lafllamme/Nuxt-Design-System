@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/vue3";
 import 'virtual:uno.css'
+// @ts-ignore: Unused import
+import reset from "../assets/uno/reset";
 
 const preview: Preview = {
   parameters: {
