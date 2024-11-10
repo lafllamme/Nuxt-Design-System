@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/storybook',
         '@unocss/nuxt',
+        'radix-vue/nuxt',
     ],
     vite: {
         optimizeDeps: {
