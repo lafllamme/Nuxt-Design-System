@@ -2,7 +2,6 @@
 *.ts linguist-language=TypeScript
 *.vue linguist-language=Vue
 *.scss linguist-language=SCSS
-*.sh linguist-language=Shell
 *.yml linguist-language=Dockerfile
 Dockerfile linguist-language=Dockerfile
 Makefile linguist-language=Makefile
@@ -17,3 +16,7 @@ node_modules/* linguist-vendored
 dist/* linguist-vendored
 coverage/* linguist-vendored
 .env linguist-vendored
+
+# Ignore MDX and Shell files in language stats
+*.mdx linguist-vendored
+*.sh linguist-vendored
