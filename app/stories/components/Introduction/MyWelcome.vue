@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center p-8 items-center bg-gradient-to-r from-indigo-500 to-blue-400">
-    <div class="w-full px-8 max-w-md min-h-20 bg-white shadow-2xl rounded-xl transform transition-all duration-300 ease-in-out
+    <div class="w-full min-w-xl px-8 max-w-md min-h-20 bg-white shadow-2xl rounded-xl transform transition-all duration-300 ease-in-out
      hover:scale-105">
       <h1 class="flex justify-center items-center p-8 text-5xl font-mono tracking-tight text-center text-slate-900 font-extrabold dark:text-white">
         Hello
