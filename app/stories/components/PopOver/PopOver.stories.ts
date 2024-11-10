@@ -15,6 +15,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const NuxtWelcomeStory: Story = {
+export const PopOverStory: Story = {
     args: {},
 }
