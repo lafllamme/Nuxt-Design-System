@@ -37,7 +37,7 @@ else
 fi
 
 # Delete package-lock.json file if it exists in the target directory
-if [ -f "package-lock.json" ]; then
+if [ -f "$TARGET_DIR/package-lock.json" ]; then
   echo "Deleting package-lock.json in $TARGET_DIR..."
   rm -f "package-lock.json"
 else
@@ -45,19 +45,19 @@ else
 fi
 
 # Delete bun.lockb file if it exists in the target directory
-if [ -f "bun.lockb" ]; then
-  echo "Deleting bun.lockb in root..."
+if [ -f "$TARGET_DIR/bun.lockb" ]; then
+  echo "Deleting bun.lockb in $TARGET_DIR/..."
   rm -f "bun.lockb"
 else
-  echo "bun.lockb does not exist in root."
+  echo "bun.lockb does not exist in $TARGET_DIR/."
 fi
 
 # Delete pnpm-lock.yaml file if it exists in the target directory
-if [ -f "pnpm-lock.yaml" ]; then
-  echo "Deleting pnpm-lock.yaml in root..."
+if [ -f "$TARGET_DIR/pnpm-lock.yaml" ]; then
+  echo "Deleting pnpm-lock.yaml in $TARGET_DIR/..."
   rm -f "pnpm-lock.yaml"
 else
-  echo "pnpm-lock.yaml does not exist in root."
+  echo "pnpm-lock.yaml does not exist in $TARGET_DIR/."
 fi
 
 echo "Folders and lock files deleted successfully."
