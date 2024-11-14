@@ -23,9 +23,10 @@ const config: StorybookConfig = {
   // @ts-ignore
   vite: {
     // plugins: [],
-    optimizeDeps: {
+    // fix below is not needed
+    /*optimizeDeps: {
       include: ['storybook > @storybook/core > jsdoc-type-pratt-parser'],
-    },
+    },*/
   },
 };
 export default config;
