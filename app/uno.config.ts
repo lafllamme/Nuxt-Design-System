@@ -10,7 +10,22 @@ import {
     transformerVariantGroup,
 } from 'unocss';
 
-import { presetRadix } from "unocss-preset-radix";
+import {presetRadix} from "unocss-preset-radix";
+
+const palettes = [
+    'gray', 'mauve', 'slate', 'sage', 'olive', 'sand', 'gold', 'bronze',
+    'brown', 'yellow', 'amber', 'orange', 'tomato', 'red', 'ruby', 'crimson',
+    'pink', 'plum', 'purple', 'violet', 'iris', 'indigo', 'blue', 'cyan',
+    'teal', 'jade', 'green', 'grass', 'lime', 'mint', 'sky',
+];
+
+const backgrounds = palettes.flatMap(color =>
+    Array.from({length: 12}, (_, i) => `bg-${color}${i + 1}`)
+);
+
+const colors = palettes.flatMap(color =>
+    Array.from({length: 12}, (_, i) => `color-${color}${i + 1}`)
+);
 
 export default defineConfig({
     shortcuts: [
@@ -18,7 +33,7 @@ export default defineConfig({
     ],
     theme: {
         colors: {
-            // You can override or extend theme colors here
+            // Extend or override theme colors here if needed
         },
     },
     presets: [
@@ -28,16 +43,15 @@ export default defineConfig({
         presetTypography(),
         presetWebFonts({
             fonts: {
-                // Define your web fonts here
+                // Define your custom web fonts here if needed
             },
         }),
         presetRadix({
-            // Include all Radix colors
             palette: [
                 'gray', 'mauve', 'slate', 'sage', 'olive', 'sand', 'gold', 'bronze',
                 'brown', 'yellow', 'amber', 'orange', 'tomato', 'red', 'ruby', 'crimson',
                 'pink', 'plum', 'purple', 'violet', 'iris', 'indigo', 'blue', 'cyan',
-                'teal', 'jade', 'green', 'grass', 'lime', 'mint', 'sky'
+                'teal', 'jade', 'green', 'grass', 'lime', 'mint', 'sky',
             ],
             aliases: {
                 primary: "green",
@@ -45,6 +59,8 @@ export default defineConfig({
             },
         }),
     ],
+    safelist: [...backgrounds, ...colors],
+
     transformers: [
         transformerDirectives(),
         transformerVariantGroup(),
