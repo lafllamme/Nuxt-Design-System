@@ -2,14 +2,23 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: {enabled: true},
-    modules: [
-        '@nuxtjs/storybook',
-        '@unocss/nuxt',
-        'radix-vue/nuxt',
-    ],
+    nitro: {
+        logLevel: 'debug',
+    },/*
     vite: {
-        optimizeDeps: {
-            include: ['storybook > @storybook/core > jsdoc-type-pratt-parser'],
+        server: {
+            hmr: {
+                protocol: "http",
+                host: "localhost",
+                clientPort: 3000,
+                port: 3000,
+            },
         },
-    },
+    },*/
+    modules: [
+      '@nuxtjs/storybook',
+      '@unocss/nuxt',
+      'radix-vue/nuxt',
+      '@nuxtjs/color-mode',
+    ],
 })
