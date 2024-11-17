@@ -11,22 +11,11 @@ import {
 } from 'unocss';
 
 import {presetRadix} from "unocss-preset-radix";
+import {safelist} from "assets/uno/scales";
 
-const palettes = [
-    'gray', 'mauve', 'slate', 'sage', 'olive', 'sand', 'gold', 'bronze',
-    'brown', 'yellow', 'amber', 'orange', 'tomato', 'red', 'ruby', 'crimson',
-    'pink', 'plum', 'purple', 'violet', 'iris', 'indigo', 'blue', 'cyan',
-    'teal', 'jade', 'green', 'grass', 'lime', 'mint', 'sky',
-];
 
-const backgrounds = palettes.flatMap(color =>
-    Array.from({length: 12}, (_, i) => `bg-${color}${i + 1}`)
-);
 
-const colors = palettes.flatMap(color =>
-    Array.from({length: 12}, (_, i) => `color-${color}${i + 1}`)
-);
-
+//run function by itself
 export default defineConfig({
     shortcuts: [
         // Define any shortcuts here
@@ -59,8 +48,7 @@ export default defineConfig({
             },
         }),
     ],
-    safelist: [...backgrounds, ...colors],
-
+    safelist: [...safelist],
     transformers: [
         transformerDirectives(),
         transformerVariantGroup(),
