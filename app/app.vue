@@ -3,4 +3,5 @@
     <NuxtRouteAnnouncer />
     <NuxtWelcome />
   </div>
+  <NuxtPage />
 </template>
