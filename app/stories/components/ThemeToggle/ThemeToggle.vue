@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import {scales} from '~/assets/uno/scales';
+import clsx from 'clsx';
+import  {safelist}  from "assets/uno/scales";
 
 // Define an interface for the scale structure
 
@@ -18,24 +19,43 @@ const colors: string[] = [
 ];
 
 // Generate a class scale for each color and scale from 1 to 12
-function generateScale(prefix: string, colors: string[] | string): ColorScale {
+// Extend palette to include alpha variants
+function generateScale(prefix: string, colors: string[] | string, includeAlpha = false): ColorScale {
   if (typeof colors === 'string') {
-    return {[colors]: Array.from({length: 12}, (_, i) => `${prefix}-${colors}${i + 1}`)};
+    const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${colors}${i + 1}`);
+    const alphaScale = includeAlpha
+        ? Array.from({length: 12}, (_, i) => `${prefix}-${colors}-${i + 1}A`)
+        : [];
+    return includeAlpha
+        ? {[colors]: baseScale, [`${colors}A`]: alphaScale}
+        : {[colors]: baseScale};
   } else {
     return colors.reduce((color: ColorScale, palette: string) => {
-      color[palette] = Array.from({length: 12}, (_, i) => `${prefix}-${palette}${i + 1}`);
+      const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${palette}${i + 1}`);
+      const alphaScale = includeAlpha
+          ? Array.from({length: 12}, (_, i) => `${prefix}-${palette}-${i + 1}A`)
+          : [];
+      if (includeAlpha) {
+        color[palette] = baseScale;
+        color[`${palette}A`] = alphaScale;
+      } else {
+        color[palette] = baseScale;
+      }
       return color;
     }, {});
   }
 }
 
+
 // Reactive reference for scales
-const palettes = ref<ColorScale>(generateScale('bg', colors));
-const textColor = ref<ColorScale>(generateScale('color', colors[0]));
+const palettes = ref<ColorScale>(generateScale('bg', colors, true)); // Includes alpha variants
+const allColors = ref<ColorScale>(generateScale('color', colors, true));
+const colorFirst = ref<ColorScale>(generateScale('color', colors[0]));
+const rings = ref<ColorScale>(generateScale('focus:ring', 'red'));
 
 
 const grades = computed(() => {
-  const levels = [...textColor.value.gray].reverse(); // Reverse levels for highest visibility
+  const levels = [...colorFirst.value.gray].reverse(); // Reverse levels for highest visibility
   const repeats = [3, 3, 3, 3]; // Repeat counts for each group
 
   return repeats.flatMap((count, idx) => {
@@ -44,22 +64,43 @@ const grades = computed(() => {
   });
 });
 
+const focusRings = computed(() => {
+  const levels = [...rings.value.red]; // Use the gray focus:ring classes directly
+  return Array.from({length: 12}, (_, i) => levels[i % levels.length]); // Cycle through levels
+});
+
 
 watchEffect(() => {
-  console.debug('TextColor =>', textColor);
+  console.debug('TextColor =>', colorFirst.value);
   console.debug('Palettes =>', palettes.value);
-  console.debug('TextColor DEbug =>', textColor.value.gray);
-  console.debug('TextColor Grade =>', grades.value);
+  console.debug('Focus Rings =>', focusRings.value);
+  console.debug('Safelist =>', safelist);
 });
 </script>
 
 <template>
   <div>
+    <button class="focus:outline-none focus:ring-2 rounded-xl p-4 w-full bg-gray-7A focus:ring-red1"><span class="color-gray12">bg-gray7A</span></button>
     <div class="font-sans text-xl antialiased font-extrabold tracking-tight overflow-x-hidden">
       <!-- Iterate over colors and scales -->
-      <div class="grid grid-cols-3 gap-4 justify-between">
-        <div v-for="color in palettes" class="space-y-2" :key="color">
-          <button v-for="(scale, idx) in color" class="rounded-xl p-4 w-full" :class=scale>
+      <div class="bg-amber-7A">
+        This works as expected
+      </div>
+      <div class="grid grid-cols-3 gap-4 justify-around">
+        <div
+            v-for="color in palettes"
+            class="space-y-2"
+            :key="color"
+        >
+          <button
+              v-for="(scale, idx) in color"
+              class="focus:outline-none focus:ring-2 rounded-xl p-4 w-full"
+              :class="
+                [
+                  scale,
+                  focusRings[idx]
+                ]
+          ">
             <span :class="grades[idx]">{{ scale }}</span>
           </button>
           <div class="spacer w-full h-20"></div>
