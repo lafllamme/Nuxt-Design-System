@@ -39,7 +39,7 @@ fi
 # Delete package-lock.json file if it exists in the target directory
 if [ -f "$TARGET_DIR/package-lock.json" ]; then
   echo "Deleting package-lock.json in $TARGET_DIR..."
-  rm -f "package-lock.json"
+  rm -f "$TARGET_DIR/package-lock.json"
 else
   echo "package-lock.json does not exist in $TARGET_DIR."
 fi
@@ -55,7 +55,7 @@ fi
 # Delete pnpm-lock.yaml file if it exists in the target directory
 if [ -f "$TARGET_DIR/pnpm-lock.yaml" ]; then
   echo "Deleting pnpm-lock.yaml in $TARGET_DIR/..."
-  rm -f "pnpm-lock.yaml"
+  rm -f "$TARGET_DIR/pnpm-lock.yaml"
 else
   echo "pnpm-lock.yaml does not exist in $TARGET_DIR/."
 fi
