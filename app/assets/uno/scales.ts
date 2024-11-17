@@ -9,27 +9,34 @@ export const palettes = [
 ];
 
 // Helper function to generate scales
-const generateScales = (prefix: string, suffix: string = '') =>
-    palettes.flatMap(color =>
-        Array.from({length: 12}, (_, i) => `${prefix}-${color}${i + 1}${suffix}`)
-    );
+// scales.ts
+
+// Safelist generation function
+export function generateSafelist(prefix: string, colors: string[], includeAlpha = false): string[] {
+    return colors.flatMap(color => {
+        const baseScales = Array.from({length: 12}, (_, i) => `${prefix}-${color}-${i + 1}`);
+        const alphaScales = includeAlpha
+            ? Array.from({length: 12}, (_, i) => `${prefix}-${color}-${i + 1}A`)
+            : [];
+        return [...baseScales, ...alphaScales];
+    });
+}
+
+// Use the function to generate safelists
+
 
 // Generate scales
-export const backgrounds = generateScales('bg');
-export const textColors = generateScales('color');
-export const focusRings = generateScales('focus:ring');
-export const alphaBackgrounds = generateScales('bg', 'A');
-export const alphaTextColors = generateScales('color', 'A');
-export const alphaFocusRings = generateScales('focus:ring', 'A');
+export const backgrounds = generateSafelist('bg', palettes, true);
+export const textColors = generateSafelist('color', palettes, true);
+export const focusRings = generateSafelist('focus:ring', palettes, true);
 
 // Combine into a single safelist
 export const safelist = [
     ...backgrounds,
     ...textColors,
     ...focusRings,
-    ...alphaBackgrounds,
-    ...alphaTextColors,
-    ...alphaFocusRings,
 ];
+
+console.debug(safelist);
 
 export default {};

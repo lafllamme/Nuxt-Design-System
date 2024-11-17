@@ -11,11 +11,8 @@ import {
 } from 'unocss';
 
 import {presetRadix} from "unocss-preset-radix";
-import {safelist} from "assets/uno/scales";
+import {safelist} from "./assets/uno/scales";
 
-
-
-//run function by itself
 export default defineConfig({
     shortcuts: [
         // Define any shortcuts here
@@ -48,7 +45,7 @@ export default defineConfig({
             },
         }),
     ],
-    safelist: [...safelist],
+    safelist: safelist,
     transformers: [
         transformerDirectives(),
         transformerVariantGroup(),

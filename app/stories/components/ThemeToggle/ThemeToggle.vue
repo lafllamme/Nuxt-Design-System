@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref, watchEffect, computed} from 'vue';
 import clsx from 'clsx';
-import {safelist} from "assets/uno/scales";
 
 // Define an interface for the scale structure
 interface ColorScale {
@@ -20,7 +19,7 @@ const colors: string[] = [
 // Extend palette to include alpha variants
 function generateScale(prefix: string, colors: string[] | string, includeAlpha = false): ColorScale {
   if (typeof colors === 'string') {
-    const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${colors}${i + 1}`);
+    const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${colors}-${i + 1}`);
     const alphaScale = includeAlpha
         ? Array.from({length: 12}, (_, i) => `${prefix}-${colors}-${i + 1}A`)
         : [];
@@ -29,7 +28,7 @@ function generateScale(prefix: string, colors: string[] | string, includeAlpha =
         : {[colors]: baseScale};
   } else {
     return colors.reduce((color: ColorScale, palette: string) => {
-      const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${palette}${i + 1}`);
+      const baseScale = Array.from({length: 12}, (_, i) => `${prefix}-${palette}-${i + 1}`);
       const alphaScale = includeAlpha
           ? Array.from({length: 12}, (_, i) => `${prefix}-${palette}-${i + 1}A`)
           : [];
@@ -46,8 +45,8 @@ function generateScale(prefix: string, colors: string[] | string, includeAlpha =
 
 // Reactive reference for scales
 const palettes = ref<ColorScale>(generateScale('bg', colors, true)); // Includes alpha variants
-const grayScale = ref<ColorScale>(generateScale('color', colors[0]));
-const rings = ref<ColorScale>(generateScale('focus:ring', 'red'));
+const grayScale = ref<ColorScale>(generateScale('color', colors[0], true));
+const rings = ref<ColorScale>(generateScale('focus:ring', 'red', true));
 
 // Reactive reference for the container background
 const containerBackground = ref('');
@@ -81,7 +80,6 @@ watchEffect(() => {
   console.debug('TextColor =>', grayScale.value);
   console.debug('Palettes =>', palettes.value);
   console.debug('Focus Rings =>', focusRings.value);
-  console.debug('Safelist =>', safelist);
 });
 </script>
 
@@ -115,3 +113,4 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
