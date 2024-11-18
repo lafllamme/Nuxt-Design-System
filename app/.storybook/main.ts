@@ -1,13 +1,10 @@
 import type { StorybookConfig } from "@storybook-vue/nuxt";
 import { mergeConfig } from 'vite';
+import {theme} from "./theme";
 
 const config: StorybookConfig = {
   stories: [
-    "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "../stories/components/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)",
-    "../stories/patterns/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)",
-    "../stories/patterns/**/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)"
+    "../stories",
   ],
   addons: [
     "@storybook/addon-links",
