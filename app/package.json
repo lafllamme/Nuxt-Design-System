@@ -37,8 +37,10 @@
     "@unocss/nuxt": "^0.64.0",
     "sass-embedded": "^1.80.6",
     "storybook": "8.4.2",
+    "typescript": "^5.7.2",
     "unocss": "^0.64.0",
-    "unocss-preset-radix": "^2.5.5"
+    "unocss-preset-radix": "^2.5.5",
+    "vue-tsc": "^2.1.10"
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }

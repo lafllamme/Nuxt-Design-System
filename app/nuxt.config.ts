@@ -4,6 +4,11 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     nitro: {
         logLevel: 'debug',
+    },
+    typescript
+        : {
+        typeCheck
+            : true
     },/*
     vite: {
         server: {
