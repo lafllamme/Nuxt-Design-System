@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://i.imgur.com/75FqnJs.png" width="180" alt="Plant Assistant"/>
+</p>
 <table align="center">
   <tr>
     <td align="center"><img width="300" src="https://i.imgur.com/7nKybtG.png" alt="Nuxt Logo" aria-label="Nuxt Logo"></td>
