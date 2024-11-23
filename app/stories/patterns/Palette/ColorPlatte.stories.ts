@@ -1,3 +1,4 @@
+// @ts-ignore
 import type {Meta, StoryObj} from '@storybook/vue3'
 import {allPalettes, defaults} from './ColorPalette.model'
 import type {ColorPaletteProps} from './ColorPalette.model'
