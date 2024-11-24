@@ -1,19 +1,19 @@
-<script setup lang="ts">
-import cslx from 'clsx';
+<script lang="ts" setup>
+import cslx from 'clsx'
 
-import {useOllama} from "~/composables/useOllama";
-import type {prompt} from "~/types/prompt.model";
+import { useOllama } from '~/composables/useOllama'
+import type { prompt } from '~/types/prompt.model'
 
-const question = ref<string>('');
-const response = ref<string>('');
-const isWorking = ref<boolean>(false);
-const {chatWithStream} = useOllama();
+const question = ref<string>('')
+const response = ref<string>('')
+const isWorking = ref<boolean>(false)
+const { chatWithStream } = useOllama()
 
-const askOllama = async () => {
+async function askOllama() {
   isWorking.value = true
   const prompt: prompt = {
     model: 'mistral',
-    messages: [{role: 'user', content: question.value}]
+    messages: [{ role: 'user', content: question.value }],
   }
   response.value = ''
   for await (const part of chatWithStream(prompt)) {
@@ -21,54 +21,43 @@ const askOllama = async () => {
   }
   isWorking.value = false
 }
-
-async function handleAction() {
-  if (isWorking.value) {
-    return
-  } else {
-    isWorking.value = true
-    console.debug('Action triggered')
-    await wait(4000)
-    isWorking.value = false
-  }
-}
-
-async function wait(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 </script>
 
 <template>
-  <div :class="
-    cslx (
-      'flex justify-start items-center',
-      'w-full',
-      'space-y-2'
-    )">
+  <div
+    :class="
+      cslx (
+        'flex justify-start items-center',
+        'w-full',
+        'space-y-2',
+      )"
+  >
     <div class="p-20">
-         <textarea
-             v-model="question"
-             rows="10"
-             cols="40"
-             placeholder="Type something amazing here..."
-             class="shadow-black shadow-lg w-full p-4 b-none rounded-lg focus:border-jade-12 focus:ring-2 focus:ring-blue-5 focus:outline-none resize-none bg-gray-5 color-black-12 text-lg"
-         ></textarea>
+      <textarea
+        v-model="question"
+        class="color-black-12 w-full resize-none rounded-lg b-none bg-gray-5 p-4 text-lg shadow-black shadow-lg focus:border-jade-12 focus:outline-none focus:ring-2 focus:ring-blue-5"
+        cols="40"
+        placeholder="Type something amazing here..."
+        rows="10"
+      />
       <button
-          class="rounded-full p-2 shadow-black text-white shadow-lg border-black border-amber-5 bg-jade-9 font-thin font-mono font-xl antialiased tracking-tight',
-       'color-gray-11A"
-          @keydown.enter.prevent="askOllama"
-          @click="askOllama"
+        class="font-xl tracking-tight', 'color-gray-11A border-amber-5 border-black rounded-full bg-jade-9 p-2 text-white font-thin font-mono antialiased shadow-black shadow-lg"
+        @click="askOllama"
+        @keydown.enter.prevent="askOllama"
       >
         Ask me anything
       </button>
     </div>
     <div>
-      <p v-if="response">Response: {{ response }}</p>
-      <p v-if="isWorking">Working...</p>
+      <p v-if="response">
+        Response: {{ response }}
+      </p>
+      <p v-if="isWorking">
+        Working...
+      </p>
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 </style>
