@@ -1,8 +1,8 @@
-import type { Preview } from "@storybook/vue3";
+import type {Preview} from "@storybook/vue3";
 import 'virtual:uno.css';
 import '~/assets/uno/reset';
-import DefaultLayout from '~/stories/layouts/DefaultLayout.vue';
-import { theme } from "./theme";
+import DefaultLayout from '../stories/layouts/DefaultLayout.vue';
+import {theme} from "./theme";
 import '../assets/fonts/storybook.scss';
 
 const applyTheme = (theme: string) => {
@@ -16,7 +16,7 @@ const applyTheme = (theme: string) => {
 
 const preview: Preview = {
     parameters: {
-        actions: { argTypesRegex: "^on[A-Z].*" },
+        actions: {argTypesRegex: "^on[A-Z].*"},
         controls: {
             matchers: {
                 color: /(background|color)$/i,
@@ -38,8 +38,8 @@ const preview: Preview = {
                 title: 'Theme',
                 icon: 'circle', // Initial icon, will be replaced dynamically
                 items: [
-                    { value: 'light', title: 'Light Mode', icon: 'sun' },
-                    { value: 'dark', title: 'Dark Mode', icon: 'moon' },
+                    {value: 'light', title: 'Light Mode', icon: 'sun'},
+                    {value: 'dark', title: 'Dark Mode', icon: 'moon'},
                 ],
                 dynamicTitle: true,
             },
@@ -48,20 +48,22 @@ const preview: Preview = {
     initialGlobals: {
         theme: 'light',
     },
+    // @ts-ignore
+    // TODO: Fix this
     docs: {
         theme: theme,
     },
     layout: 'fullscreen',
     decorators: [
         (story, context) => {
-            const { globals } = context;
+            const {globals} = context;
             applyTheme(globals.theme);
             return {
-                components: { story, DefaultLayout },
+                components: {story, DefaultLayout},
                 template: `
-          <DefaultLayout>
-            <story/>
-          </DefaultLayout>`,
+                  <DefaultLayout>
+                    <story/>
+                  </DefaultLayout>`,
             };
         },
     ],
