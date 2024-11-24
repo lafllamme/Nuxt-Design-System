@@ -23,7 +23,9 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.9.2",
     "@chromatic-com/storybook": "latest",
+    "@eslint/create-config": "^1.4.0",
     "@nuxtjs/storybook": "latest",
     "@storybook-vue/nuxt": "latest",
     "@storybook/addon-essentials": "8.4.2",
@@ -36,7 +38,13 @@
     "@storybook/theming": "^8.4.4",
     "@storybook/vue3": "8.4.2",
     "@types/node": "^18.17.5",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@unocss/eslint-plugin": "^0.64.1",
     "@unocss/nuxt": "^0.64.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-format": "^0.1.2",
+    "eslint-plugin-solid": "^0.14.4",
+    "eslint-plugin-vue": "^9.31.0",
     "sass-embedded": "^1.80.6",
     "storybook": "8.4.2",
     "typescript": "^5.7.2",
