@@ -8,7 +8,7 @@ export const theme = create({
 
     brandTitle: 'Plant.me Design System',
     brandUrl: '#',
-    brandImage: 'https://i.imgur.com/aWwKWZj.png',
+    brandImage: 'https://i.imgur.com/75FqnJs.png',
     brandTarget: '#',
 
     //
