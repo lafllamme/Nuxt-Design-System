@@ -4,5 +4,6 @@
 # add .env files
 .env
 
-#add node_modules
+#add node_modules & pnpm-store
 node_modules
+.pnpm-store
