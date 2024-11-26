@@ -33,6 +33,12 @@ up:
 	$(call ECHO_MSG,Bringing up services)
 	$(COMPOSE) up -d
 
+# make down, make build, make up, make logs
+upp:
+	$(call ECHO_MSG, Rebuild & Restarting services)
+	$(COMPOSE) build
+	$(COMPOSE) up -d
+	$(COMPOSE) logs -f
 # Bring up the services with build
 upb:
 	$(call ECHO_MSG,Bringing up services with build)
