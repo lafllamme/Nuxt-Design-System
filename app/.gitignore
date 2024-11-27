@@ -8,6 +8,7 @@ dist
 
 # Node dependencies
 node_modules
+.pnpm-store
 
 # Package files
 package-lock.json
