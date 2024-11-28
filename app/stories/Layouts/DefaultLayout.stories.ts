@@ -3,6 +3,7 @@ import DefaultLayout from '~/stories/Layouts/DefaultLayout.vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 
+// TODO: improve story book layout
 const meta = {
   title: 'Layouts/DefaultLayout',
   component: DefaultLayout,
