@@ -28,11 +28,12 @@ if [ -f package.json ]; then
 
   if command_exists pnpm; then
     log_message "pnpm" "pnpm is available. Installing dependencies and starting the development server..."
-    pnpm install
+    pnpm i
+    pnpm update && pnpm upgrade
     pnpm run dev
   elif command_exists bun; then
     log_message "bun" "bun is available. Installing dependencies and starting the development server..."
-    bun install
+    bun i
     bun run dev
   else
     log_message "error" "Neither pnpm nor bun is available. Exiting."
