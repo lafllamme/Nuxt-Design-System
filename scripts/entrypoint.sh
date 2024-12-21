@@ -29,8 +29,10 @@ if [ -f package.json ]; then
   if command_exists pnpm; then
     log_message "pnpm" "pnpm is available. Installing dependencies and starting the development server..."
     pnpm i
+    log_message "pnpm" "Updating dependencies and starting the development server..."
     pnpm update && pnpm upgrade
-    pnpm run dev
+    log_message "pnpm" "Starting Development Server..."
+    VITE_CJS_IGNORE_WARNING=1 pnpm run dev
   elif command_exists bun; then
     log_message "bun" "bun is available. Installing dependencies and starting the development server..."
     bun i
