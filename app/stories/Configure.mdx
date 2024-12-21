@@ -1,286 +1,374 @@
-import { Meta } from "@storybook/blocks";
+import {Meta} from "@storybook/blocks";
 
-import Accessibility from "./assets/accessibility.svg";
-import Checkmark from "./assets/checkmark.svg";
-import Document from "./assets/document.svg";
-import Typography from "./assets/typography.svg";
-import Github from "./assets/github.svg";
-import Discord from "./assets/discord.svg";
-import Youtube from "./assets/youtube.svg";
-import Chromatic from "./assets/chromatic.svg";
-import Figma from "./assets/figma.svg";
-import Tutorials from "./assets/tutorials.svg";
-import Styling from "./assets/styling.jpg";
-import Context from "./assets/context.jpg";
-import Assets from "./assets/assets.jpg";
+<Meta title="Nuxt Design System 🎨"/>
 
-<Meta title="Configure your project" />
+# Welcome to the Nuxt Design System
 
-# Configure your project
+The **Nuxt Design System** is a cutting-edge framework built with the power of **Nuxt 3**, **Vue 3**, **UnoCSS**, and **Radix UI**. It combines efficiency, customization, and modern design principles, allowing you to create stunning web applications with ease. 🚀
 
-Because Storybook works separately from your app, you'll need to configure it for your specific stack and setup. Below, explore guides for configuring Storybook with popular frameworks and tools. If you get stuck, learn how you can ask for help from our community.
+---
 
-<div className="sb-section">
-  <div className="sb-section-item">
-    <img
-      src={Styling}
-      alt="A wall of logos representing different styling technologies"
-    />
-    <div className="sb-block">
-      <h3>Add styling and CSS</h3>
-      <p>Like with web applications, there are many ways to include CSS within Storybook. Learn more about setting up styling within Storybook.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/configure/styling-and-css"
-        target="_blank"
-      >
-        Read more on how to set up styling 
-        <span className="sb-chevron">&#8250;</span>
-      </a>
-    </div>
-  </div>
-  <div className="sb-section-item">
-    <img
-      src={Context}
-      alt="An abstraction representing the composition of data for a component"
-    />
-    <div className="sb-block">
-      <h3>Provide context and mocking</h3>
-      <p>Often when a story doesn't render, it's because your component is
-        expecting a specific environment or context (like a theme provider) to be available. 
-        Learn more about solving these issues by providing context and mocking to Storybook.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/writing-stories/decorators#context-for-mocking"
-        target="_blank"
-      >Read more on how to set up context <span className="sb-chevron">&#8250;</span></a>
-    </div>
-  </div>
-  <div className="sb-section-item">
-    <img src={Assets} alt="A representation of typography and image assets" />
-    <div className="sb-block">
-      <h3>Load assets and resources</h3>
-      <p>To link static files (like fonts) to your projects and stories, use the `staticDirs` configuration option to specify folders to load when starting Storybook.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/configure/images-and-assets"
-        target="_blank"
-      >Read more on how to load assets <span className="sb-chevron">&#8250;</span></a>
-    </div>
-  </div>
+## Why Nuxt Design System?
+
+The Nuxt Design System leverages:
+
+- **[UnoCSS](https://github.com/unocss/unocss):** The instant on-demand Atomic CSS engine.
+- **[Radix UI](https://www.radix-ui.com):** A library of accessible and customizable UI components.
+- **[Radix Colors](https://www.radix-ui.com/colors):** Beautiful, accessible color palettes designed for modern UI.
+
+These tools are seamlessly integrated into the Nuxt 3 ecosystem, offering unparalleled flexibility and simplicity. 🎨
+
+---
+
+## Getting Started
+
+To start using the Nuxt Design System, follow these steps:
+
+1. **Install the required packages:**
+
+```bash
+pnpm install unocss @radix-ui/colors
+```
+
+2. **Configure UnoCSS in your `nuxt.config.ts`:**
+
+```js
+export default defineNuxtConfig({
+  modules: ["@unocss/nuxt"],
+  unocss: {
+    presets: [
+      require("@unocss/preset-uno")(),
+      require("@unocss/preset-attributify")(),
+    ],
+  },
+});
+```
+
+3. **Import and use Radix Colors:**
+
+```css
+@import "@radix-ui/colors";
+```
+
+---
+
+## Features at a Glance
+
+### 1. Atomic CSS with UnoCSS
+Easily style your components with an intuitive and performant Atomic CSS approach. UnoCSS provides a delightful developer experience with:
+
+- **Dynamic utilities** for responsive design.
+- **Custom themes** for tailored styling.
+- **Preset integrations** to expand functionality.
+
+Learn more about UnoCSS [here](https://github.com/unocss/unocss). ✨
+
+### 2. Accessible Components with Radix UI
+Radix UI ensures accessibility and customization, offering:
+
+- Keyboard-friendly components.
+- Full theming support.
+- Accessibility by default.
+
+Explore Radix UI [here](https://www.radix-ui.com). 🛠️
+
+### 3. Modern Color Palettes with Radix Colors
+Use Radix Colors for vibrant, accessible, and consistent color themes. Examples include:
+
+- **Teal:** `--teal-9`
+- **Gray:** `--gray-3`
+
+Check out the full palette [here](https://www.radix-ui.com/colors). 🌈
+
+---
+
+## Styling Guidelines
+
+Our design system focuses on a **monochrome-minimalist** aesthetic. Below are key styling tips:
+
+- **Background:** `--color-background`
+- **Primary Accent (Teal):** `--teal-9`
+- **Neutral Palette:** `--gray-5`, `--gray-9`, `--gray-12` for text
+
+---
+
+## Explore the Ecosystem
+
+### Community & Documentation
+- **[Discord](https://discord.gg/storybook):** Join the conversation.
+- **[GitHub](https://github.com/nuxt):** Contribute to the project.
+- **[Radix UI Docs](https://www.radix-ui.com/docs):** Learn about components.
+- **[UnoCSS Docs](https://unocss.dev):** Explore the CSS engine.
+
+---
+
+<div class="card">
+    <h3>A Minimal Teal Card</h3>
+    <p>
+        This is an example card using our new color palette. Notice the subtle shadow from <code>var(--gray-a5)</code>.
+    </p>
+    <button class="button">Primary Action</button>
 </div>
 
-# Do more with Storybook
+<div class="divider"></div>
 
-Now that you know the basics, let's explore other parts of Storybook that will improve your experience. This list is just to get you started. You can customise Storybook in many ways to fit your needs.
-
-<br />
-
-<div className="sb-section">
-  <div className="sb-features-grid-container">
-    <div className="sb-grid-item">
-      <img src={Document} alt="Document" />
-      <h3>Autodocs</h3>
-      <p>Auto-generate living, interactive reference documentation from your components and stories.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/writing-docs/autodocs"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-    <div className="sb-grid-item">
-      <img src={Checkmark} alt="Checkmark" />
-      <h3>Testing</h3>
-      <p>Use stories to test a component in all its variations, no matter how complex.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/writing-tests/introduction"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-    <div className="sb-grid-item">
-      <img src={Chromatic} alt="Chromatic" />
-      <h3>Publish to Chromatic</h3>
-      <p>Publish your Storybook to review and collaborate with your entire team.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/sharing/publish-storybook#publish-storybook-with-chromatic"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-    <div className="sb-grid-item">
-      <img src={Figma} alt="Figma" />
-      <h3>Figma Plugin</h3>
-      <p>Embed your stories into Figma to cross-reference the design and live implementation in one place.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/sharing/design-integrations#embed-storybook-in-figma-with-the-plugin"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-    <div className="sb-grid-item">
-      <img src={Accessibility} alt="Accessibility" />
-      <h3>Accessibility</h3>
-      <p>Automatically test your components for a11y issues as you develop.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/writing-tests/accessibility-testing"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-    <div className="sb-grid-item">
-      <img src={Typography} alt="Typography" />
-      <h3>Theming</h3>
-      <p>Theme Storybook's UI to personalize it to your project.</p>
-      <a
-        href="https://storybook.js.org/docs/{{renderer}}/configure/theming"
-        target="_blank"
-      >Learn more <span className="sb-chevron">&#8250;</span></a>
-    </div>
-  </div>
+<div style={{textAlign: "center", marginTop: "48px", fontSize: "14px", whiteSpace: "nowrap",}}>
+    Made with ❤️ by{" "}
+    <a href="https://github.com/Lafllamme" target="_blank">
+        Lafllamme
+    </a>
 </div>
 
-# Explore and Connect
-
-Connect with our community on Discord or start contributing directly on Github. You might also be interesting in watching some videos on Youtube explaining how to take full advantage of Storybook.
-
-<br />
-
-<div className="sb-section">
-  <div className="sb-card-grid-container">
-    <a
-      className="sb-explore-card"
-      href="https://discord.gg/storybook"
-      target="_blank"
-    >
-      <img src={Discord} alt="Discord" />
-      <span>Discord</span>
-    </a>
-    <a
-      className="sb-explore-card"
-      href="https://github.com/storybookjs/storybook"
-      target="_blank"
-    >
-      <img src={Github} alt="Github" />
-      <span>Github</span>
-    </a>
-    <a
-      className="sb-explore-card"
-      href="https://www.youtube.com/@chromaticui"
-      target="_blank"
-    >
-      <img src={Youtube} alt="Youtube" />
-      <span>Youtube</span>
-    </a>
-    <a
-      className="sb-explore-card"
-      href="https://storybook.js.org/tutorials/"
-      target="_blank"
-    >
-      <img src={Tutorials} alt="Tutorials" />
-      <span>Tutorials</span>
-    </a>
-  </div>
-</div>
 
 <style>
-  {`
-  .sb-section {
-    width: 100%;
-    margin-bottom: 64px;
-  }
+    {`
+/* ------------------------------------------------------------------------------------------
+   TEAL PALETTE
+------------------------------------------------------------------------------------------ */
+:root,
+.light,
+.light-theme {
+  --teal-1: #f3f8f7;
+  --teal-2: #ecf5f3;
+  --teal-3: #d7f2eb;
+  --teal-4: #c2ece1;
+  --teal-5: #ace4d6;
+  --teal-6: #94d8c8;
+  --teal-7: #76c7b5;
+  --teal-8: #42b39d;
+  --teal-9: #4cbba5;
+  --teal-10: #3eaf9a;
+  --teal-11: #00705f;
+  --teal-12: #18433a;
 
-  .sb-section img {
-    border-radius: 10px;
-    max-height: 170px;
-  }
+                                                                  --teal-a1: #adf1ff1d;
+                                                                  --teal-a2: #0cbdca11;
+                                                                  --teal-a3: #04cbad26;
+                                                                  --teal-a4: #02c19c3b;
+                                                                  --teal-a5: #01b79251;
+                                                                  --teal-a6: #02aa876a;
+                                                                  --teal-a7: #009c7c88;
+                                                                  --teal-a8: #029b7ebd;
+                                                                  --teal-a9: #02a183b3;
+                                                                  --teal-a10: #01977cc1;
+                                                                  --teal-a11: #00705f;
+                                                                  --teal-a12: #003127e7;
 
-  .sb-section-item {
-    width: 100%;
-    margin-bottom: 20px;
-    width: 100%;
-    display: flex;
-    gap: 18px;
-    align-items: center;
-  }
+                                                                  --teal-contrast: #fff;
+                                                                  --teal-surface: #e9f4f3cc;
+                                                                  --teal-indicator: var(--teal-9);
+                                                                  --teal-track: var(--teal-9);
+                                                                }
 
-  .sb-section-item a,
-  .sb-grid-item a {
-    font-size: 13px;
-    transition: transform 150ms ease-out,color 150ms ease-out;
-  }
+                                                                /* Advanced color-gamut / display-p3 support */
+                                                                @supports (color: color(display-p3 1 1 1)) {
+                                                                  @media (color-gamut: p3) {
+                                                                    :root,
+                                                                    .light,
+                                                                    .light-theme {
+                                                                      --teal-1: oklch(97.5% 0.0052 177.8);
+                                                                      --teal-2: oklch(96.3% 0.01 177.8);
+                                                                      --teal-3: oklch(93.9% 0.0298 177.8);
+                                                                      --teal-4: oklch(91.1% 0.0469 177.8);
+                                                                      --teal-5: oklch(87.6% 0.0607 177.8);
+                                                                      --teal-6: oklch(83.2% 0.0717 177.8);
+                                                                      --teal-7: oklch(77.2% 0.0846 177.8);
+                                                                      --teal-8: oklch(69.6% 0.1063 177.8);
+                                                                      --teal-9: oklch(72.2% 0.1063 177.8);
+                                                                      --teal-10: oklch(68.6% 0.1063 177.8);
+                                                                      --teal-11: oklch(48.6% 0.0947 177.8);
+                                                                      --teal-12: oklch(35% 0.0504 177.8);
 
-  .sb-section-item img {
-    width: 297px;
-  }
+                                                                      --teal-a1: color(display-p3 0.7412 0.9451 1 / 0.112);
+                                                                      --teal-a2: color(display-p3 0.0078 0.6784 0.7412 / 0.052);
+                                                                      --teal-a3: color(display-p3 0.0039 0.7255 0.6196 / 0.124);
+                                                                      --teal-a4: color(display-p3 0.0039 0.698 0.5451 / 0.196);
+                                                                      --teal-a5: color(display-p3 0.0039 0.6353 0.498 / 0.267);
+                                                                      --teal-a6: color(display-p3 0.0039 0.5843 0.451 / 0.351);
+                                                                      --teal-a7: color(display-p3 0.0039 0.5294 0.4157 / 0.455);
+                                                                      --teal-a8: color(display-p3 0 0.5137 0.3961 / 0.606);
+                                                                      --teal-a9: color(display-p3 0 0.5412 0.4196 / 0.574);
+                                                                      --teal-a10: color(display-p3 0 0.498 0.3882 / 0.618);
+                                                                      --teal-a11: color(display-p3 0 0.3059 0.2431 / 0.813);
+                                                                      --teal-a12: color(display-p3 0 0.1373 0.1059 / 0.857);
 
-  .sb-section-item a > p,
-  .sb-grid-item a > p {
-    all: unset;
-  }
+                                                                      --teal-contrast: #fff;
+                                                                      --teal-surface: color(display-p3 0.9216 0.9569 0.9529 / 0.8);
+                                                                      --teal-indicator: oklch(72.2% 0.1063 177.8);
+                                                                      --teal-track: oklch(72.2% 0.1063 177.8);
+                                                                    }
+                                                                  }
+                                                                }
 
-  .sb-block {
-    flex: 1;
-    margin-left: 10px;
-  }
+                                                                /* ------------------------------------------------------------------------------------------
+                                                                   GRAY SCALE
+                                                                ------------------------------------------------------------------------------------------ */
+                                                                :root,
+                                                                .light,
+                                                                .light-theme {
+                                                                  --gray-1: #f6f6f6;
+                                                                  --gray-2: #f2f2f2;
+                                                                  --gray-3: #e9e9e9;
+                                                                  --gray-4: #e0e0e0;
+                                                                  --gray-5: #d9d9d9;
+                                                                  --gray-6: #d1d1d1;
+                                                                  --gray-7: #c6c6c6;
+                                                                  --gray-8: #b2b2b2;
+                                                                  --gray-9: #858585;
+                                                                  --gray-10: #7b7b7b;
+                                                                  --gray-11: #5d5d5d;
+                                                                  --gray-12: #202020;
 
-  .sb-chevron {
-    margin-left: 5px;
-  }
+                                                                  --gray-a1: #228cf607;
+                                                                  --gray-a2: #15579a0b;
+                                                                  --gray-a3: #0a2d5114;
+                                                                  --gray-a4: #061e351d;
+                                                                  --gray-a5: #05172924;
+                                                                  --gray-a6: #02121f2c;
+                                                                  --gray-a7: #020d1837;
+                                                                  --gray-a8: #01080f4b;
+                                                                  --gray-a9: #02050879;
+                                                                  --gray-a10: #00040683;
+                                                                  --gray-a11: #000203a1;
+                                                                  --gray-a12: #000101df;
 
-  .sb-features-grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 40px 20px;
-  }
+                                                                  --gray-contrast: #fff;
+                                                                  --gray-surface: #ffffffcc;
+                                                                  --gray-indicator: var(--gray-9);
+                                                                  --gray-track: var(--gray-9);
+                                                                }
 
-  .sb-grid-item img {
-    max-height: 48px;
-    margin-bottom: 12px;
-  }
+                                                                @supports (color: color(display-p3 1 1 1)) {
+                                                                  @media (color-gamut: p3) {
+                                                                    :root,
+                                                                    .light,
+                                                                    .light-theme {
+                                                                      --gray-1: oklch(97.3% 0 none);
+                                                                      --gray-2: oklch(96.2% 0 none);
+                                                                      --gray-3: oklch(93.3% 0 none);
+                                                                      --gray-4: oklch(90.8% 0 none);
+                                                                      --gray-5: oklch(88.5% 0 none);
+                                                                      --gray-6: oklch(85.9% 0 none);
+                                                                      --gray-7: oklch(82.5% 0 none);
+                                                                      --gray-8: oklch(76.5% 0 none);
+                                                                      --gray-9: oklch(61.6% 0 none);
+                                                                      --gray-10: oklch(58.1% 0 none);
+                                                                      --gray-11: oklch(47.7% 0 none);
+                                                                      --gray-12: oklch(24.3% 0 none);
 
-  .sb-card-grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-  }
+                                                                      --gray-a1: color(display-p3 0.0078 0.3922 0.9686 / 0.02);
+                                                                      --gray-a2: color(display-p3 0.0078 0.2157 0.5294 / 0.036);
+                                                                      --gray-a3: color(display-p3 0.0039 0.1059 0.2588 / 0.072);
+                                                                      --gray-a4: color(display-p3 0.0078 0.0706 0.1686 / 0.108);
+                                                                      --gray-a5: color(display-p3 0.0039 0.0549 0.1294 / 0.136);
+                                                                      --gray-a6: color(display-p3 0.0078 0.0431 0.102 / 0.168);
+                                                                      --gray-a7: color(display-p3 0.0039 0.0353 0.0784 / 0.212);
+                                                                      --gray-a8: color(display-p3 0.0039 0.0196 0.051 / 0.291);
+                                                                      --gray-a9: color(display-p3 0.0039 0.0118 0.0275 / 0.471);
+                                                                      --gray-a10: color(display-p3 0 0.0078 0.0157 / 0.51);
+                                                                      --gray-a11: color(display-p3 0 0.0078 0.0118 / 0.63);
+                                                                      --gray-a12: color(display-p3 0 0 0.0039 / 0.873);
 
-  .sb-explore-card {
-    border-radius: 8px;
-    border: 2px solid #00000010;
-    padding: 20px;
-    display: grid;
-    justify-content: center;
-    font-weight: 700;
-    transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-    color: #333333;
-    gap: 8px;
-  }
+                                                                      --gray-contrast: #fff;
+                                                                      --gray-surface: color(display-p3 1 1 1 / 0.8);
+                                                                      --gray-indicator: oklch(61.6% 0 none);
+                                                                      --gray-track: oklch(61.6% 0 none);
+                                                                    }
+                                                                  }
+                                                                }
 
-  .sb-explore-card:hover {
-    border-color: #1EA7FD50;
-    transform: translate3d(0, -3px, 0);
-    box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
-  }
+                                                                /* ------------------------------------------------------------------------------------------
+                                                                   BACKGROUND
+                                                                ------------------------------------------------------------------------------------------ */
+                                                                :root,
+                                                                .light,
+                                                                .light-theme,
+                                                                .radix-themes {
+                                                                  --color-background: #fcf9f6;
+                                                                }
 
-  .sb-explore-card:active {
-    border-color: #1EA7FD;
-    transform: translate3d(0, 0, 0);
-  }
+                                                                /* ------------------------------------------------------------------------------------------
+                                                                   BASE STYLING (MINIMAL + MONOCHROME + TEAL ACCENT)
+                                                                ------------------------------------------------------------------------------------------ */
+                                                                body {
+                                                                  font-family: sans-serif !important;
+                                                                  background-color: var(--color-background) !important;
+                                                                  color: var(--gray-12) !important;
+                                                                  margin: 0 !important;
+                                                                  padding: 0 !important;
+                                                                }
 
-  .sb-card-background {
-    width: 100%;
-    height: 150px;
-    background-color: #ccc;
-  }
+                                                                /* Headings with a teal accent */
+                                                                h1, h2, h3, h4, h5, h6 {
+                                                                  color: var(--teal-11) !important;
+                                                                  margin-top: 1.5rem !important;
+                                                                  margin-bottom: 0.5rem !important;
+                                                                  font-weight: 600 !important;
+                                                                }
 
-  @media screen and (max-width: 600px) {
-    .sb-section-item {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .sb-block {
-      margin-left: 0;
-      margin-top: 10px;
-    }
-    .sb-features-grid-container {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    .sb-card-grid-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  `}
+                                                                /* Standard paragraphs */
+                                                                p {
+                                                                  margin: 0.5rem 0 !important;
+                                                                  line-height: 1.5 !important;
+                                                                  color: var(--gray-12) !important;
+                                                                }
+
+                                                                /* Links in teal, with hover effect */
+                                                                a {
+                                                                  color: var(--teal-8) !important;
+                                                                  text-decoration: none !important;
+                                                                  transition: color 0.3s ease !important;
+                                                                }
+                                                                a:hover {
+                                                                  color: var(--teal-12) !important;
+                                                                }
+
+                                                                /* Buttons using teal accent */
+                                                                .button {
+                                                                  padding: 0.6rem 1.2rem !important;
+                                                                  background-color: var(--teal-9) !important;
+                                                                  color: var(--teal-contrast) !important;
+                                                                  border-radius: 4px !important;
+                                                                  border: none !important;
+                                                                  cursor: pointer !important;
+                                                                  font-size: 0.95rem !important;
+                                                                  transition: background-color 0.3s ease !important;
+                                                                }
+                                                                .button:hover {
+                                                                  background-color: var(--teal-10) !important;
+                                                                }
+
+                                                                /* A simple divider */
+                                                                .divider {
+                                                                  margin: 2rem 0 !important;
+                                                                  border-top: 1px solid var(--gray-4) !important;
+                                                                }
+
+                                                                /* A card component showcasing subtle shadow from the Gray palette */
+                                                                .card {
+                                                                  background-color: var(--gray-1) !important;
+                                                                  border: 1px solid var(--gray-4) !important;
+                                                                  border-radius: 6px !important;
+                                                                  max-width: 600px !important;
+                                                                  margin: 2rem auto !important;
+                                                                  padding: 1.5rem !important;
+                                                                  box-shadow: 0 4px 8px var(--gray-a5) !important;
+                                                                }
+
+                                                                /* Code blocks & inline code with a slight gray background + teal text */
+                                                                code,
+                                                                pre {
+                                                                  font-family: monospace !important;
+                                                                  background-color: var(--gray-2) !important;
+                                                                  border: 1px solid var(--gray-4) !important;
+                                                                  color: var(--teal-11) !important;
+                                                                  border-radius: 4px !important;
+                                                                  padding: 0.25rem 0.5rem !important;
+                                                                }
+                                                                pre {
+                                                                  display: block !important;
+                                                                  padding: 1rem !important;
+                                                                  overflow: auto !important;
+                                                                }
+`}
 </style>
