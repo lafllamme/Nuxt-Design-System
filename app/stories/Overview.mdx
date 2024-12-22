@@ -1,0 +1,385 @@
+import {Meta} from "@storybook/blocks";
+
+<Meta title="Variations & States 🕵🏼‍♀️"/>
+
+# Complete Overview: Structure of the Design System
+
+The **Nuxt Design System** can be extended to include various **component states**, advanced **color variations**, and additional **utility classes**. Below is a structured summary that highlights how to organize colors, typography, spacing, borders, shadows, animations, and custom token-based classes — all in **one cohesive design system**.
+
+---
+
+## 1. Color System
+
+We define a **color system** subdivided into four main categories, complemented by status states and neutral colors:
+
+- **Primary:** Main brand color.  
+Examples: Buttons, links, and primary actions.
+- **Secondary:** Supporting colors.  
+Examples: Secondary buttons, informative sections, or complementary accents.
+- **Tertiary:** Accent colors.  
+Examples: Highlights, emphasis for certain UI elements.
+- **Quaternary:** Additional supporting colors.  
+Examples: Subtle backgrounds and secondary actions.
+- **Neutral:** Grays and background colors.  
+Examples: Text elements, disabled states, and general backgrounds.
+- **States:** Status-dependent color variations for interactions.
+- `-hover`: Hover state
+- `-active`: Active state
+- `-focus`: Focus state
+- `-disabled`: Disabled state
+- **Utility Colors:** Feedback or alert colors.  
+Examples: `$success`, `$warning`, `$error`, `$info`
+
+> **Tip:** These categories ensure clarity and consistency across complex interfaces.
+
+---
+
+## 2. Typography System
+
+The typography system is defined by **font sizes**, **weights**, and **line heights**:
+
+- **Font-Sizes:** `$small`, `$medium`, `$large`, `$xl`, etc.  
+Examples: Small labels, headings, and body text.
+- **Font-Weights:** `$light`, `$regular`, `$bold`  
+Examples: Standard, bold, or lighter text uses.
+- **Line-Heights:** `$tight`, `$normal`, `$loose`  
+Controls readability and spacing in paragraphs or headings.
+- **Letter-Spacing:** `$tight`, `$normal`, `$wide`
+
+> **Remember:** Consistent typography is crucial for readability and brand identity.
+
+---
+
+## 3. Spacing
+
+Standardized spacing for **margins**, **paddings**, and **grid gutters**:
+
+- **Paddings/Margins:** `$spacing-1`, `$spacing-2`, ..., `$spacing-10`  
+A scalable set of spacing tokens (e.g., `4px`, `8px`, `16px`, ...).
+- **Grid-Gutters:** `$gutter-small`, `$gutter-medium`, `$gutter-large`  
+Helps maintain consistent alignment and layout across columns.
+
+---
+
+## 4. Borders
+
+Border tokens for **stroke widths** and **border radii**:
+
+- **Border-Widths:** `$thin`, `$normal`, `$thick`  
+Examples: Input fields, cards, and other containers.
+- **Border-Radius:** `$none`, `$sm`, `$md`, `$lg`, `$full`  
+Examples: Rounded buttons or subtly rounded corners on cards.
+
+---
+
+## 5. Shadows
+
+Utilize shadows for **hover** and **active** states:
+
+- **Box-Shadows:** `$shadow-small`, `$shadow-medium`, `$shadow-large`  
+Examples: Modals, active buttons, and cards.
+
+Shadows help give depth and emphasis to interactive UI elements.
+
+---
+
+## 6. Animations
+
+Animations and transition settings for smooth user experiences:
+
+- **Transition-Durations:** `$fast`, `$normal`, `$slow`  
+Examples: Hover transitions and fade effects.
+- **Transition-Timings:** `$ease`, `$ease-in`, `$ease-out`  
+Examples: Animation curves for toggling components or modals.
+- **Keyframes:** Reusable animations (e.g., loading spinners, fade-in effects).
+
+---
+
+## 7. Custom Classes
+
+All tokens should use a **`$` syntax** for UnoCSS integration. Examples:
+
+- **Colors:**
+- `bg-$primary`, `bg-$primary-hover`, `text-$neutral-disabled`
+- **Typography:**
+- `font-$small`, `font-$medium-bold`
+- **Spacing:**
+- `p-$spacing-2`, `m-$spacing-4`
+- **Borders:**
+- `border-$thin`, `rounded-$lg`
+- **Shadows:**
+- `shadow-$medium`
+
+> **Ready to dive in?** Start by defining your **colors** using Radix Colors as a base, then map them to your `$primary`, `$secondary`, `$tertiary`, `$quaternary`, `$neutral`, etc.
+
+---
+
+
+<div style={{textAlign: "center", marginTop: "48px", fontSize: "14px", whiteSpace: "nowrap",}}>
+    <a href="https://github.com/Lafllamme" target="_blank">
+        Made with ❤️ by <span>Lafllamme</span>
+    </a>
+</div>
+
+<style>
+    {`
+/* ------------------------------------------------------------------------------------------
+   TEAL PALETTE
+------------------------------------------------------------------------------------------ */
+:root,
+.light,
+.light-theme {
+  --teal-1: #f3f8f7;
+  --teal-2: #ecf5f3;
+  --teal-3: #d7f2eb;
+  --teal-4: #c2ece1;
+  --teal-5: #ace4d6;
+  --teal-6: #94d8c8;
+  --teal-7: #76c7b5;
+  --teal-8: #42b39d;
+  --teal-9: #4cbba5;
+  --teal-10: #3eaf9a;
+  --teal-11: #00705f;
+  --teal-12: #18433a;
+  --teal-a1: #adf1ff1d;
+  --teal-a2: #0cbdca11;
+  --teal-a3: #04cbad26;
+  --teal-a4: #02c19c3b;
+  --teal-a5: #01b79251;
+  --teal-a6: #02aa876a;
+  --teal-a7: #009c7c88;
+  --teal-a8: #029b7ebd;
+  --teal-a9: #02a183b3;
+  --teal-a10: #01977cc1;
+  --teal-a11: #00705f;
+  --teal-a12: #003127e7;
+
+                              --teal-contrast: #fff;
+                              --teal-surface: #e9f4f3cc;
+                              --teal-indicator: var(--teal-9);
+                              --teal-track: var(--teal-9);
+                            }
+
+                            /* Advanced color-gamut / display-p3 support */
+                            @supports (color: color(display-p3 1 1 1)) {
+                              @media (color-gamut: p3) {
+                                :root,
+                                .light,
+                                .light-theme {
+                                  --teal-1: oklch(97.5% 0.0052 177.8);
+                                  --teal-2: oklch(96.3% 0.01 177.8);
+                                  --teal-3: oklch(93.9% 0.0298 177.8);
+                                  --teal-4: oklch(91.1% 0.0469 177.8);
+                                  --teal-5: oklch(87.6% 0.0607 177.8);
+                                  --teal-6: oklch(83.2% 0.0717 177.8);
+                                  --teal-7: oklch(77.2% 0.0846 177.8);
+                                  --teal-8: oklch(69.6% 0.1063 177.8);
+                                  --teal-9: oklch(72.2% 0.1063 177.8);
+                                  --teal-10: oklch(68.6% 0.1063 177.8);
+                                  --teal-11: oklch(48.6% 0.0947 177.8);
+                                  --teal-12: oklch(35% 0.0504 177.8);
+
+                                  --teal-a1: color(display-p3 0.7412 0.9451 1 / 0.112);
+                                  --teal-a2: color(display-p3 0.0078 0.6784 0.7412 / 0.052);
+                                  --teal-a3: color(display-p3 0.0039 0.7255 0.6196 / 0.124);
+                                  --teal-a4: color(display-p3 0.0039 0.698 0.5451 / 0.196);
+                                  --teal-a5: color(display-p3 0.0039 0.6353 0.498 / 0.267);
+                                  --teal-a6: color(display-p3 0.0039 0.5843 0.451 / 0.351);
+                                  --teal-a7: color(display-p3 0.0039 0.5294 0.4157 / 0.455);
+                                  --teal-a8: color(display-p3 0 0.5137 0.3961 / 0.606);
+                                  --teal-a9: color(display-p3 0 0.5412 0.4196 / 0.574);
+                                  --teal-a10: color(display-p3 0 0.498 0.3882 / 0.618);
+                                  --teal-a11: color(display-p3 0 0.3059 0.2431 / 0.813);
+                                  --teal-a12: color(display-p3 0 0.1373 0.1059 / 0.857);
+
+                                  --teal-contrast: #fff;
+                                  --teal-surface: color(display-p3 0.9216 0.9569 0.9529 / 0.8);
+                                  --teal-indicator: oklch(72.2% 0.1063 177.8);
+                                  --teal-track: oklch(72.2% 0.1063 177.8);
+                                }
+                              }
+                            }
+
+                            /* ------------------------------------------------------------------------------------------
+                               GRAY SCALE
+                            ------------------------------------------------------------------------------------------ */
+                            :root,
+                            .light,
+                            .light-theme {
+                              --gray-1: #f6f6f6;
+                              --gray-2: #f2f2f2;
+                              --gray-3: #e9e9e9;
+                              --gray-4: #e0e0e0;
+                              --gray-5: #d9d9d9;
+                              --gray-6: #d1d1d1;
+                              --gray-7: #c6c6c6;
+                              --gray-8: #b2b2b2;
+                              --gray-9: #858585;
+                              --gray-10: #7b7b7b;
+                              --gray-11: #5d5d5d;
+                              --gray-12: #202020;
+
+                              --gray-a1: #228cf607;
+                              --gray-a2: #15579a0b;
+                              --gray-a3: #0a2d5114;
+                              --gray-a4: #061e351d;
+                              --gray-a5: #05172924;
+                              --gray-a6: #02121f2c;
+                              --gray-a7: #020d1837;
+                              --gray-a8: #01080f4b;
+                              --gray-a9: #02050879;
+                              --gray-a10: #00040683;
+                              --gray-a11: #000203a1;
+                              --gray-a12: #000101df;
+
+                              --gray-contrast: #fff;
+                              --gray-surface: #ffffffcc;
+                              --gray-indicator: var(--gray-9);
+                              --gray-track: var(--gray-9);
+                            }
+
+                            @supports (color: color(display-p3 1 1 1)) {
+                              @media (color-gamut: p3) {
+                                :root,
+                                .light,
+                                .light-theme {
+                                  --gray-1: oklch(97.3% 0 none);
+                                  --gray-2: oklch(96.2% 0 none);
+                                  --gray-3: oklch(93.3% 0 none);
+                                  --gray-4: oklch(90.8% 0 none);
+                                  --gray-5: oklch(88.5% 0 none);
+                                  --gray-6: oklch(85.9% 0 none);
+                                  --gray-7: oklch(82.5% 0 none);
+                                  --gray-8: oklch(76.5% 0 none);
+                                  --gray-9: oklch(61.6% 0 none);
+                                  --gray-10: oklch(58.1% 0 none);
+                                  --gray-11: oklch(47.7% 0 none);
+                                  --gray-12: oklch(24.3% 0 none);
+
+                                  --gray-a1: color(display-p3 0.0078 0.3922 0.9686 / 0.02);
+                                  --gray-a2: color(display-p3 0.0078 0.2157 0.5294 / 0.036);
+                                  --gray-a3: color(display-p3 0.0039 0.1059 0.2588 / 0.072);
+                                  --gray-a4: color(display-p3 0.0078 0.0706 0.1686 / 0.108);
+                                  --gray-a5: color(display-p3 0.0039 0.0549 0.1294 / 0.136);
+                                  --gray-a6: color(display-p3 0.0078 0.0431 0.102 / 0.168);
+                                  --gray-a7: color(display-p3 0.0039 0.0353 0.0784 / 0.212);
+                                  --gray-a8: color(display-p3 0.0039 0.0196 0.051 / 0.291);
+                                  --gray-a9: color(display-p3 0.0039 0.0118 0.0275 / 0.471);
+                                  --gray-a10: color(display-p3 0 0.0078 0.0157 / 0.51);
+                                  --gray-a11: color(display-p3 0 0.0078 0.0118 / 0.63);
+                                  --gray-a12: color(display-p3 0 0 0.0039 / 0.873);
+
+                                  --gray-contrast: #fff;
+                                  --gray-surface: color(display-p3 1 1 1 / 0.8);
+                                  --gray-indicator: oklch(61.6% 0 none);
+                                  --gray-track: oklch(61.6% 0 none);
+                                }
+                              }
+                            }
+
+                            /* ------------------------------------------------------------------------------------------
+                               BACKGROUND
+                            ------------------------------------------------------------------------------------------ */
+                            :root,
+                            .light,
+                            .light-theme,
+                            .radix-themes {
+                              --color-background: #fcf9f6;
+                            }
+
+                            /* ------------------------------------------------------------------------------------------
+                               BASE STYLING (MINIMAL + MONOCHROME + TEAL ACCENT)
+                            ------------------------------------------------------------------------------------------ */
+                            body {
+                              font-family: sans-serif !important;
+                              background-color: var(--color-background) !important;
+                              color: var(--gray-12) !important;
+                              margin: 0 !important;
+                              padding: 0 !important;
+                            }
+
+                            /* Headings with a teal accent */
+                            h1, h2, h3, h4, h5, h6 {
+                              color: var(--teal-11) !important;
+                              margin-top: 1.5rem !important;
+                              margin-bottom: 0.5rem !important;
+                              font-weight: 600 !important;
+                            }
+
+                            /* Standard paragraphs */
+                            p {
+                              margin: 0.5rem 0 !important;
+                              line-height: 1.5 !important;
+                              color: var(--gray-12) !important;
+                            }
+
+                            /* Spans and links outside of pre elements */
+                            span:not(pre span),
+                            a {
+                              color: var(--teal-8) !important;
+                              text-decoration: none !important;
+                              transition: color 0.3s ease !important;
+                            }
+
+                            span:not(pre span):hover,
+                            a:hover {
+                              color: var(--teal-12) !important;
+                            }
+
+                            /* Spans inside pre elements: darker teal, hover -> orange */
+                            pre span {
+                              color: var(--teal-12) !important;
+                            }
+                            pre span:hover {
+                              color: orange !important; /* Or use a custom variable like var(--orange-9) */
+                            }
+
+                            /* Buttons using teal accent */
+                            .button {
+                              padding: 0.6rem 1.2rem !important;
+                              background-color: var(--teal-9) !important;
+                              color: var(--teal-contrast) !important;
+                              border-radius: 4px !important;
+                              border: none !important;
+                              cursor: pointer !important;
+                              font-size: 0.95rem !important;
+                              transition: background-color 0.3s ease !important;
+                            }
+                            .button:hover {
+                              background-color: var(--teal-10) !important;
+                            }
+
+                            /* A simple divider */
+                            .divider {
+                              margin: 2rem 0 !important;
+                              border-top: 1px solid var(--gray-4) !important;
+                            }
+
+                            /* A card component showcasing subtle shadow from the Gray palette */
+                            .card {
+                              background-color: var(--gray-1) !important;
+                              border: 1px solid var(--gray-4) !important;
+                              border-radius: 6px !important;
+                              max-width: 600px !important;
+                              margin: 2rem auto !important;
+                              padding: 1.5rem !important;
+                              box-shadow: 0 4px 8px var(--gray-a5) !important;
+                            }
+
+                            /* Code blocks & inline code with a slight gray background + teal text */
+                            code,
+                            pre {
+                              font-family: monospace !important;
+                              background-color: var(--gray-2) !important;
+                              border: 1px solid var(--gray-4) !important;
+                              color: var(--teal-11) !important;
+                              border-radius: 4px !important;
+                              padding: 0.25rem 0.5rem !important;
+                            }
+                            pre {
+                              display: block !important;
+                              padding: 1rem !important;
+                              overflow: auto !important;
+                            }
+`}
+</style>
