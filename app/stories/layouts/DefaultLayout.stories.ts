@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import DefaultLayout from '~/stories/Layouts/DefaultLayout.vue'
+import DefaultLayout from '~/stories/layouts/DefaultLayout.vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 
