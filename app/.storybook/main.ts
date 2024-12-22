@@ -1,23 +1,23 @@
-import type { StorybookConfig } from "@storybook-vue/nuxt";
-import { mergeConfig } from 'vite';
-import {theme} from "./theme";
+import type { StorybookConfig } from '@storybook-vue/nuxt'
+// @ts-expect-error -- ignoring missing module type
+import { mergeConfig } from 'vite'
 
 const config: StorybookConfig = {
   stories: [
-    "../stories",
+    '../stories',
   ],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-interactions",
-    "@storybook/addon-essentials",
+    '@storybook/addon-links',
+    '@storybook/addon-interactions',
+    '@storybook/addon-essentials',
 
   ],
   framework: {
-    name: "@storybook-vue/nuxt",
+    name: '@storybook-vue/nuxt',
     options: {},
   },
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag',
   },
   async viteFinal(config) {
     return mergeConfig(config, {
@@ -27,7 +27,7 @@ const config: StorybookConfig = {
         },
       },
       devtools: true,
-    });
+    })
   },
-};
-export default config;
+}
+export default config
