@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import cslx from 'clsx'
-
-import { useOllama } from '~/composables/useOllama'
 import type { prompt } from '~/types/prompt.model'
+
+import cslx from 'clsx'
+import { useOllama } from '~/composables/useOllama'
 
 const question = ref<string>('')
 const response = ref<string>('')
