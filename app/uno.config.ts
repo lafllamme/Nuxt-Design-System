@@ -1,4 +1,3 @@
-// uno.config.ts
 import {
   defineConfig,
   presetAttributify,
@@ -9,7 +8,6 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-
 import { presetRadix } from 'unocss-preset-radix'
 import { safelist } from './assets/uno/scales'
 
@@ -22,6 +20,7 @@ export default defineConfig({
       // Extend or override theme colors here if needed
     },
   },
+
   presets: [
     presetUno(),
     presetAttributify(),
@@ -66,10 +65,7 @@ export default defineConfig({
         'mint',
         'sky',
       ],
-      aliases: {
-        primary: 'green',
-        base: 'slate',
-      },
+      extend: false,
     }),
   ],
   safelist,
