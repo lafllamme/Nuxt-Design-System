@@ -1,7 +1,7 @@
 # Dockerfiles/PNPM.Dockerfile
 
-# Use node:20-slim as the base image
-FROM node:20-slim AS base
+# Use latest base image for compatibility | https://hub.docker.com/_/node
+FROM node:23.4.0-slim AS base
 
 # Set environment variables
 ENV PNPM_HOME="/pnpm"
