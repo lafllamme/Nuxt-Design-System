@@ -1,88 +1,30 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue'
+import type { ColorScale } from 'assets/uno/scales'
+import { colors, colorScales, generateScale, safelist, sortEntries } from 'assets/uno/scales'
+import { computed, ref } from 'vue'
 
-// Define an interface for the scale structure
-interface ColorScale {
-  [key: string]: string[]
-}
+// TODO: Move all this shit into a helper
 
-// Define all colors from the presetRadix palette
-const colors: string[] = [
-  'gray',
-  'mauve',
-  'slate',
-  'sage',
-  'olive',
-  'sand',
-  'gold',
-  'bronze',
-  'brown',
-  'yellow',
-  'amber',
-  'orange',
-  'tomato',
-  'red',
-  'ruby',
-  'crimson',
-  'pink',
-  'plum',
-  'purple',
-  'violet',
-  'iris',
-  'indigo',
-  'blue',
-  'cyan',
-  'teal',
-  'jade',
-  'green',
-  'grass',
-  'lime',
-  'mint',
-  'sky',
-]
+/**
+ * Returns a computed object with all color palettes
+ * The object is sorted alphabetically by key
+ */
+const palettes = computed<ColorScale>(() => {
+  const base = generateScale('bg', colors, true)
+  return sortEntries(base) as ColorScale
+})
 
-// TODO: Add a function to generate a scale for each color within helper
-
-// Generate a class scale for each color and scale from 1 to 12
-// Extend palette to include alpha variants
-function generateScale(prefix: string, colors: string[] | string, includeAlpha = false): ColorScale {
-  if (typeof colors === 'string') {
-    const baseScale = Array.from({ length: 12 }, (_, i) => `${prefix}-${colors}-${i + 1}`)
-    const alphaScale = includeAlpha
-      ? Array.from({ length: 12 }, (_, i) => `${prefix}-${colors}-${i + 1}A`)
-      : []
-    return includeAlpha
-      ? { [colors]: baseScale, [`${colors}A`]: alphaScale }
-      : { [colors]: baseScale }
-  }
-  else {
-    return colors.reduce((color: ColorScale, palette: string) => {
-      const baseScale = Array.from({ length: 12 }, (_, i) => `${prefix}-${palette}-${i + 1}`)
-      const alphaScale = includeAlpha
-        ? Array.from({ length: 12 }, (_, i) => `${prefix}-${palette}-${i + 1}A`)
-        : []
-      if (includeAlpha) {
-        color[palette] = baseScale
-        color[`${palette}A`] = alphaScale
-      }
-      else {
-        color[palette] = baseScale
-      }
-      return color
-    }, {})
-  }
-}
-
-// Reactive reference for scales
-const palettes = ref<ColorScale>(generateScale('bg', colors, true)) // Includes alpha variants
 const grayScale = ref<ColorScale>(generateScale('color', colors[0], true))
 const rings = ref<ColorScale>(generateScale('focus:ring', 'red', true))
 
-// Reactive reference for the container background
+// Container background
 const containerBackground = ref('')
 const backgroundTimer = ref<NodeJS.Timeout | null>(null)
 
-// Function to update container background and set a timeout for reset
+/**
+ * Change the background color of the container
+ * @param newBackground
+ */
 function changeBackground(newBackground: string) {
   containerBackground.value = newBackground
   if (backgroundTimer.value)
@@ -92,14 +34,13 @@ function changeBackground(newBackground: string) {
   }, 10000)
 }
 
+/**
+ * Generate a scale of text colors based on the gray scale
+ * @param grayScale - The gray scale color scale
+ * This is used for the descriptive text in each button
+ */
 const grades = computed(() => {
-  const levels = [...grayScale.value.gray].reverse() // Reverse levels for highest visibility
-  const repeats = [3, 3, 3, 3] // Repeat counts for each group
-
-  return repeats.flatMap((count, idx) => {
-    const levelIndex = idx === 2 ? levels.length - 2 : idx === 3 ? levels.length - 1 : idx
-    return Array.from({ length: count }).fill(levels[levelIndex])
-  })
+  return colorScales(grayScale.value.gray)
 })
 
 const focusRings = computed(() => {
@@ -108,9 +49,12 @@ const focusRings = computed(() => {
 })
 
 watchEffect(() => {
-  console.debug('TextColor =>', grayScale.value)
-  console.debug('Palettes =>', palettes.value)
-  console.debug('Focus Rings =>', focusRings.value)
+  consola.info('Palettes =>', toRaw(palettes.value))
+  consola.info('Safelist =>', safelist)
+  // check if safe list contains 'bg-black'
+  consola.info('Safe list contains bg-black =>', safelist.includes('bg-black-7A'))
+  // Find position of 'bg-black' in safe list
+  consola.info('Position of bg-black in safe list =>', safelist.indexOf('bg-black-7A'))
 })
 </script>
 
@@ -121,8 +65,20 @@ watchEffect(() => {
       class="overflow-x-hidden p-4 text-xl font-extrabold tracking-tight font-sans antialiased transition-colors duration-700"
     >
       <!-- Iterate over colors and scales -->
-      <div class="mb-4 bg-amber-7A">
+      <div class="bg-amber-7A mb-4">
         This works as expected
+      </div>
+      <div class="bg-black-4A text-white-fg">
+        ITS NOT TOTALLY BLACK
+      </div>
+      <div class="bg-black-9A text-white-fg">
+        ITS NOT TOTALLY BLACK
+      </div>
+      <div class="bg-black-12A text-white-fg">
+        ITS NOT TOTALLY BLACK
+      </div>
+      <div class="bg-black-1A text-white-fg">
+        ITS NOT TOTALLY BLACK
       </div>
       <div class="grid grid-cols-3 justify-around gap-4">
         <div
@@ -132,6 +88,7 @@ watchEffect(() => {
         >
           <button
             v-for="(scale, idx) in color"
+            :key="`${palette}-${idx}`"
             :class="scale"
             class="w-full rounded-xl p-4 transition-colors duration-700 focus:outline-none focus:ring-4 focus:ring-black"
             @focus="changeBackground(scale)"
