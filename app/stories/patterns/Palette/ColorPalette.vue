@@ -1,37 +1,28 @@
-<script setup lang="ts">
-import {ColorPaletteProps, defaults} from './ColorPalette.model'
-import Button from "~/stories/components/Button/Button.vue";
+<script lang="ts" setup>
+import type { ColorPaletteProps } from './ColorPalette.model'
+import consola from 'consola'
+import Button from '~/stories/components/Button/Button.vue'
+import { defaults } from './ColorPalette.model'
 
 const props = withDefaults(defineProps<ColorPaletteProps>(), defaults)
 const { palette } = toRefs(props)
-console.debug('Palette =>', palette)
+consola.debug('Palette =>', palette)
 </script>
 
 <template>
-  <div class="flex justify-center items-center w-full">
-    <div v-for="(n, idx) in 12">
+  <div class="w-full flex items-center justify-center">
+    <div v-for="(n, idx) in 12" :key="n">
       <Button
-          :label="`${palette}-${idx}`"
-          :class="`${palette}-${idx}`"
-          type='primary'
-          size='medium'
-          :disabled="false"
+        :class="`${palette}-${idx}`"
+        :disabled="false"
+        :label="`${palette}-${idx}`"
+        size="medium"
+        type="primary"
       />
-
-      <button class="text-red-10A">
-        Alpha Color
-      </button>
-      <button class="text-red-10">
-        Regular Color
-      </button>
-      <button class="color-red-dar">
-        Regular Color
-      </button>
-
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
