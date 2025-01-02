@@ -26,7 +26,7 @@ async function askOllama() {
 <template>
   <div
     :class="
-      cslx (
+      cslx(
         'flex justify-start items-center',
         'w-full',
         'space-y-2',
@@ -35,13 +35,13 @@ async function askOllama() {
     <div class="p-20">
       <textarea
         v-model="question"
-        class="color-black-12 w-full resize-none rounded-lg b-none bg-gray-5 p-4 text-lg shadow-black shadow-lg focus:border-jade-12 focus:outline-none focus:ring-2 focus:ring-blue-5"
+        class="color-black-12 shadow-black w-full resize-none rounded-lg b-none bg-gray-5 p-4 text-lg shadow-lg focus:border-jade-12 focus:outline-none focus:ring-2 focus:ring-blue-5"
         cols="40"
         placeholder="Type something amazing here..."
         rows="10"
       />
       <button
-        class="font-xl tracking-tight', 'color-gray-11A border-amber-5 border-black rounded-full bg-jade-9 p-2 text-white font-thin font-mono antialiased shadow-black shadow-lg"
+        class="font-xl tracking-tight', 'color-gray-11A border-black text-white shadow-black border-amber-5 rounded-full bg-jade-9 p-2 font-thin font-mono antialiased shadow-lg"
         @click="askOllama"
         @keydown.enter.prevent="askOllama"
       >
