@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import Example from '@/components/ui/Example.vue'
+<script lang="ts" setup>
+import Example from '~/components/ui/Prompt.vue'
 </script>
 
 <template>
