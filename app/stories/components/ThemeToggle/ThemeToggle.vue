@@ -43,16 +43,11 @@ const grades = computed(() => {
   return colorScales(grayScale.value.gray)
 })
 
-const focusRings = computed(() => {
-  const levels = [...rings.value.red] // Use the gray focus:ring classes directly
-  return Array.from({ length: 12 }, (_, i) => levels[i % levels.length]) // Cycle through levels
-})
-
 watchEffect(() => {
   consola.info('Palettes =>', toRaw(palettes.value))
   consola.info('Safelist =>', safelist)
   // check if safe list contains 'bg-black'
-  consola.info('Safe list contains bg-black =>', safelist.includes('bg-black-7A'))
+  consola.info('Safe list contains bg-blackA-1 =>', safelist.includes('bg-blackA-1'))
   // Find position of 'bg-black' in safe list
   consola.info('Position of bg-black in safe list =>', safelist.indexOf('bg-black-7A'))
 })
@@ -65,20 +60,32 @@ watchEffect(() => {
       class="overflow-x-hidden p-4 text-xl font-extrabold tracking-tight font-sans antialiased transition-colors duration-700"
     >
       <!-- Iterate over colors and scales -->
-      <div class="bg-amber-7A mb-4">
+      <div class="mb-4 bg-amber-7A">
         This works as expected
       </div>
-      <div class="bg-black-4A text-white-fg">
-        ITS NOT TOTALLY BLACK
+      <div class="bg-blackA-1">
+        BLACK-A1
       </div>
-      <div class="bg-black-9A text-white-fg">
-        ITS NOT TOTALLY BLACK
+      <div class="bg-blackA-5">
+        BLACK-A5
       </div>
-      <div class="bg-black-12A text-white-fg">
-        ITS NOT TOTALLY BLACK
+      <div class="bg-blackA-6">
+        BLACK-A6
       </div>
-      <div class="bg-black-1A text-white-fg">
-        ITS NOT TOTALLY BLACK
+      <div class="bg-blackA-7">
+        BLACK-A7
+      </div>
+      <div class="bg-blackA-8">
+        BLACK-A8
+      </div>
+      <div class="bg-blackA-9">
+        BLACK-A9
+      </div>
+      <div class="bg-blackA-10">
+        BLACK-10A
+      </div>
+      <div class="bg-blackA-12">
+        BLACK-12A
       </div>
       <div class="grid grid-cols-3 justify-around gap-4">
         <div
@@ -90,7 +97,7 @@ watchEffect(() => {
             v-for="(scale, idx) in color"
             :key="`${palette}-${idx}`"
             :class="scale"
-            class="w-full rounded-xl p-4 transition-colors duration-700 focus:outline-none focus:ring-4 focus:ring-black"
+            class="focus:ring-black w-full rounded-xl p-4 transition-colors duration-700 focus:outline-none focus:ring-4"
             @focus="changeBackground(scale)"
           >
             <span :class="grades[idx]">{{ scale }}</span>
