@@ -1,7 +1,7 @@
 export interface prompt {
   model: string | Models
   messages: Message[]
-  stream: boolean
+  stream?: boolean
 }
 
 export type Roles = 'user' | 'system'

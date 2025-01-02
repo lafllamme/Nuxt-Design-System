@@ -1,11 +1,11 @@
-import type { Message, prompt } from '@/types/prompt.model'
+import type { prompt } from '@/types/prompt.model'
 import ollama from 'ollama'
 
 export function useOllama() {
   // Regular chat
   const chat = async (prompt: prompt): Promise<string | null> => {
     try {
-      const body: { messages: Message[], model: string, stream: false } = {
+      const body = {
         messages: prompt.messages,
         model: prompt.model,
         stream: false,
@@ -25,7 +25,7 @@ export function useOllama() {
   // Streaming chat
   const chatWithStream = async function* (prompt: prompt): AsyncGenerator<string, void, unknown> {
     try {
-      const body: { messages: Message[], model: string, stream: true } = {
+      const body = {
         messages: prompt.messages,
         model: prompt.model,
         stream: true,
