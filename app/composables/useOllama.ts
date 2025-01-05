@@ -8,7 +8,7 @@ export function useOllama() {
       const body = {
         messages: prompt.messages,
         model: prompt.model,
-        stream: false,
+        stream: false as const,
       }
       const response = await ollama.chat(body) // Ensure stream is not passed here
       return response.message?.content || null // Safely access content
@@ -28,7 +28,7 @@ export function useOllama() {
       const body = {
         messages: prompt.messages,
         model: prompt.model,
-        stream: true,
+        stream: true as const,
       }
 
       const response = await ollama.chat(body) // Expect response to be an AsyncIterable
