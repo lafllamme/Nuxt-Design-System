@@ -17,6 +17,16 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  css: ['~/assets/main.scss'],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
+  },
   modules: [
     '@nuxtjs/storybook',
     '@unocss/nuxt',
