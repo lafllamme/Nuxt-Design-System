@@ -8,9 +8,15 @@ COMPOSE=docker-compose
 SERVICE=$(SERVICE_NAME)
 IMG=$(IMAGE)
 
-# Define a function to echo messages with date
-define ECHO_MSG
-	@echo "$(1) $(SERVICE) 🐳 on $(shell date)"
+# Define color codes
+BLUE = \033[0;34m
+YELLOW = \033[1;33m
+RESET = \033[0m
+
+
+# Function to print logs in a formatted style
+define LOG_MSG
+	@echo "$(BLUE)[Makefile]$(RESET) | $(YELLOW)($(shell date '+%Y-%m-%d %H:%M:%S'))$(RESET): $(1) $(SERVICE) 🐳"
 endef
 
 .PHONY: all build up upb up-no-cache down logs logs-follow build-no-cache restart clean help
@@ -20,80 +26,120 @@ all: help
 
 # Build the Docker image
 build:
-	$(call ECHO_MSG,Building the Docker image)
+	$(call LOG_MSG,Building the Docker image)
 	$(COMPOSE) build
 
 # Build without cache
 build-no-cache:
-	$(call ECHO_MSG,Building the Docker image without cache)
+	$(call LOG_MSG,Building the Docker image without cache)
 	$(COMPOSE) build --no-cache
+
+# Clean up node modules and lock files
+clean:
+	$(call LOG_MSG,Cleaning up node modules and lock files)
+	chmod +x scripts/clean.sh
+	./scripts/clean.sh
+
+# Clean up Docker images and containers
+clean-container:
+	$(call LOG_MSG,Cleaning up Docker containers and images)
+	$(COMPOSE) down --rmi all -v --remove-orphans
 
 # Bring up the services in detached mode
 up:
-	$(call ECHO_MSG,Bringing up services)
+	$(call LOG_MSG,Bringing up services)
 	$(COMPOSE) up -d
 
-# make down, make build, make up, make logs
+# make down, make build, skip updates, make up, make logs
 upp:
-	$(call ECHO_MSG, Rebuild & Restarting services)
+	$(call LOG_MSG, Rebuild & Restarting services)
 	$(COMPOSE) down
 	$(COMPOSE) build --no-cache
-	$(COMPOSE) up -d
+	SKIP_UPDATE=true $(COMPOSE) up -d
+	$(COMPOSE) logs -f
+
+# make down, make build, make up with latest updates, make logs
+upd:
+	$(call LOG_MSG, Rebuild & Restarting services)
+	$(COMPOSE) down
+	$(COMPOSE) build --no-cache
+	SKIP_UPDATE=false $(COMPOSE) up -d
 	$(COMPOSE) logs -f
 
 # Bring up the services with build
 upb:
-	$(call ECHO_MSG,Bringing up services with build)
+	$(call LOG_MSG,Bringing up services with build)
 	$(COMPOSE) up --build
 
 # Bring up the services without using cache
 up-no-cache:
-	$(call ECHO_MSG,Bringing up services without using cache)
+	$(call LOG_MSG,Bringing up services without using cache)
 	$(COMPOSE) up --build --no-cache
 
 # Enter bash in container
 bash:
-	$(call ECHO_MSG,Entering bash in container)
+	$(call LOG_MSG,Entering bash in container)
 	@$(COMPOSE) exec $(SERVICE) bash
 
 # Restart the services
 restart:
-	$(call ECHO_MSG,Restarting services)
+	$(call LOG_MSG,Restarting services)
 	$(COMPOSE) down
 	$(COMPOSE) up -d
 
+refresh:
+	$(call LOG_MSG,Refreshing services)
+	$(COMPOSE) down
+	# Run clean script
+	$(MAKE) clean-files
+	SKIP_UPDATE=true $(COMPOSE) up -d
+	$(COMPOSE) logs -f
+
 # Bring down the services
 down:
-	$(call ECHO_MSG,Bringing down services)
+	$(call LOG_MSG,Bringing down services)
 	$(COMPOSE) down
 
 # View logs for all services
 logs:
-	$(call ECHO_MSG,Showing logs)
+	$(call LOG_MSG,Showing logs)
 	$(COMPOSE) logs -f
 
 # Follow logs for all services
 logs-follow:
-	$(call ECHO_MSG,Following logs with timestamps)
+	$(call LOG_MSG,Following logs with timestamps)
 	$(COMPOSE) logs -f -t
 
-# Clean up Docker images and containers
-clean:
-	$(call ECHO_MSG,Cleaning up Docker containers and images)
-	$(COMPOSE) down --rmi all -v --remove-orphans
+skip-on:
+	$(call LOG_MSG,Toggling update status)
+	SKIP_UPDATE=true
+	$(call Skipping updates is now ON (SKIP_UPDATE=$(SKIP_UPDATE)))
 
-# Help command to display available targets
+skip-off:
+	$(call LOG_MSG,Toggling update status)
+	SKIP_UPDATE=false
+	$(call Skipping updates is now OFF (SKIP_UPDATE=$(SKIP_UPDATE)))
+
 help:
+	@echo ""
 	@echo "Available Makefile targets:"
-	@echo "  build           Build the Docker images."
-	@echo "  build-no-cache  Build the Docker images without using cache."
-	@echo "  up              Bring up the services in detached mode."
-	@echo "  upb             Bring up the services with build."
-	@echo "  up-no-cache     Bring up the services without using cache."
-	@echo "  restart         Restart the services."
-	@echo "  down            Bring down the services."
-	@echo "  logs            View logs for all services."
-	@echo "  logs-follow     Follow logs with timestamps."
-	@echo "  bash            Enter bash in container."
-	@echo "  clean           Remove containers, images, volumes, and orphans."
-	@echo "  help            Show this help message."
+	@echo "-----------------------------------------------------------------------"
+	@echo "  build             Build the Docker images."
+	@echo "  build-no-cache    Build the Docker images without using cache."
+	@echo "  up                Bring up the services in detached mode."
+	@echo "  upb               Bring up the services with build."
+	@echo "  up-no-cache       Bring up the services without using cache."
+	@echo "  upp               Rebuild, skip updates, and restart services."
+	@echo "  upd               Rebuild, update, and restart services."
+	@echo "  restart           Restart the services."
+	@echo "  down              Bring down the services."
+	@echo "  logs              View logs for all services."
+	@echo "  logs-follow       Follow logs with timestamps."
+	@echo "  bash              Enter bash in the container."
+	@echo "  clean             Remove containers, images, volumes, and orphans."
+	@echo "  refresh           Refresh services (clean script + up)."
+	@echo "  help              Show this help message."
+	@echo "-----------------------------------------------------------------------"
+	@echo "Usage:"
+	@echo "  Run 'make <target>' to execute the corresponding command."
+	@echo ""
