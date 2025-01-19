@@ -43,6 +43,21 @@ export interface ColorScale {
   [key: string]: string[]
 }
 
+export const DefaultColor = {
+  Black: 'black',
+  White: 'white',
+}
+
+export const CustomColor = {
+  Black: 'pureBlack',
+  White: 'pureWhite',
+}
+
+const specialCases: Record<string, string> = {
+  [DefaultColor.Black]: CustomColor.Black,
+  [DefaultColor.White]: CustomColor.White,
+}
+
 /**
  * Generates a palette and its scales for given colors
  * @param prefix
@@ -51,18 +66,15 @@ export interface ColorScale {
  */
 export function generateScale(prefix: string, colors: string | string[], alpha = true): ColorScale {
   const getScale = (color: string) => {
-    const isBW = color === 'black' || color === 'white'
+    const specialCase = specialCases[color] || color
 
-    const baseScale = isBW
-      ? [`${prefix}-${color}`]
+    const baseScale = specialCases[color]
+      ? [`${prefix}-${specialCase}`]
       : Array.from({ length: 12 }, (_, i) => `${prefix}-${color}-${i + 1}`)
 
     const alphaScale = alpha
       ? Array.from({ length: 12 }, (_, i) => `${prefix}-${color}-${i + 1}A`)
       : []
-        /*
-            consola.info('[Scales] Prefix:', prefix, 'Color:', color, 'Base:', baseScale, 'Alpha:', alphaScale)
-        */
 
     return { baseScale, alphaScale }
   }
@@ -96,10 +108,13 @@ export function sortEntries(obj: Record<string, string[]>): object {
 }
 
 export function colorScales(palette: string[]) {
+  // Reverse the palette so it starts with (12...1) => dark to light
   const reversed = [...palette].reverse()
 
+  // Repeat the given scale x times => (scale-12, scale-12, scale-12), [...]
   const repeats = [3, 3, 3, 3]
 
+  // Indices for the reversed palette => (12, 11, 2, 1)
   const indices = [0, 1, reversed.length - 2, reversed.length - 1]
 
   return repeats.flatMap((count, i) => {
@@ -120,6 +135,7 @@ export const safelist = [
   textColors,
   focusRings,
   shadow,
+  'bg-pureBlack',
 ].flatMap(Object.values).flat()
 
 export default {}
