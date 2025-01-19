@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook-vue/nuxt'
+import { mergeConfig } from 'vite'
 
 const config: StorybookConfig = {
   stories: [
@@ -17,15 +18,16 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  /* async viteFinal(config) {
-        return mergeConfig(config, {
-          resolve: {
-            alias: {
-              vue: 'vue/dist/vue.esm-bundler.js',
-            },
-          },
-          devtools: true,
-        })
-      }, */
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      resolve: {
+        alias: {
+          // vue: 'vue/dist/vue.esm-bundler.js',
+          '@nuxtjs/color-mode': require.resolve('@nuxtjs/color-mode'),
+        },
+      },
+      devtools: true,
+    })
+  },
 }
 export default config
