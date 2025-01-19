@@ -14,6 +14,9 @@ log_message() {
   echo  "${BLUE}[Entrypoint]${RESET} | ${YELLOW}(${date})${RESET}: $message"
 }
 
+# Use SKIP_UPDATE from environment variables (default to false if not set)
+SKIP_UPDATE=${SKIP_UPDATE:-false}
+
 # Change to the app directory
 cd /app || exit
 
@@ -27,10 +30,21 @@ if [ -f package.json ]; then
   log_message "package.json check" "package.json found."
 
   if command_exists pnpm; then
-    log_message "pnpm" "pnpm is available. Installing dependencies and starting the development server..."
+    log_message "pnpm" "(PNPM) is available. Installing dependencies and starting the development server..."
     pnpm i
-    pnpm update && pnpm upgrade
-    pnpm run dev
+
+    if [ "$SKIP_UPDATE" = "false" ]; then
+      log_message "pnpm" "(PNPM) Updating dependencies..."
+      corepack prepare pnpm@latest --activate
+      pnpm update
+      log_message "pnpm" "(PNPM) Upgrading dependencies..."
+      pnpm upgrade
+    else
+      log_message "pnpm" "(PNPM) Skipping dependency update and upgrade..."
+    fi
+
+    log_message "pnpm" "Finally! Starting Development Server..."
+    VITE_CJS_IGNORE_WARNING=1 pnpm run dev
   elif command_exists bun; then
     log_message "bun" "bun is available. Installing dependencies and starting the development server..."
     bun i

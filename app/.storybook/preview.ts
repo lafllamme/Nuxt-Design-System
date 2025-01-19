@@ -1,72 +1,73 @@
-import type {Preview} from "@storybook/vue3";
-import 'virtual:uno.css';
-import '~/assets/uno/reset';
-import DefaultLayout from '../stories/layouts/DefaultLayout.vue';
-import {theme} from "./theme";
-import '../assets/fonts/storybook.scss';
+import type { Preview } from '@storybook/vue3'
+import DefaultLayout from '@/stories/layouts/DefaultLayout'
+import { theme } from './theme'
+import 'virtual:uno.css'
+import '~/assets/uno/reset'
+import '../assets/fonts/storybook.scss'
 
-const applyTheme = (theme: string) => {
-    const html = document.documentElement;
-    if (theme === 'dark') {
-        html.classList.add('dark-theme');
-    } else {
-        html.classList.remove('dark-theme');
-    }
-};
+function applyTheme(theme: string) {
+  const html = document.documentElement
+  if (theme === 'dark') {
+    html.classList.add('dark-theme')
+  }
+  else {
+    html.classList.remove('dark-theme')
+  }
+}
 
 const preview: Preview = {
-    parameters: {
-        actions: {argTypesRegex: "^on[A-Z].*"},
-        controls: {
-            matchers: {
-                color: /(background|color)$/i,
-                date: /Date$/,
-            },
-        },
-        options: {
-            storySort: {
-                method: 'alphabetical',
-                order: [],
-                locales: '',
-            },
-        },
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
-    globalTypes: {
-        theme: {
-            description: 'Global theme for components',
-            toolbar: {
-                title: 'Theme',
-                icon: 'circle', // Initial icon, will be replaced dynamically
-                items: [
-                    {value: 'light', title: 'Light Mode', icon: 'sun'},
-                    {value: 'dark', title: 'Dark Mode', icon: 'moon'},
-                ],
-                dynamicTitle: true,
-            },
-        },
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: [],
+        locales: '',
+      },
     },
-    initialGlobals: {
-        theme: 'light',
+  },
+  globalTypes: {
+    theme: {
+      description: 'Global theme for components',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circle', // Initial icon, will be replaced dynamically
+        items: [
+          { value: 'light', title: 'Light Mode', icon: 'sun' },
+          { value: 'dark', title: 'Dark Mode', icon: 'moon' },
+        ],
+        dynamicTitle: true,
+      },
     },
-    // @ts-ignore
-    // TODO: Fix this
-    docs: {
-        theme: theme,
-    },
-    layout: 'fullscreen',
-    decorators: [
-        (story, context) => {
-            const {globals} = context;
-            applyTheme(globals.theme);
-            return {
-                components: {story, DefaultLayout},
-                template: `
+  },
+  initialGlobals: {
+    theme: 'light',
+  },
+
+  docs: {
+    theme,
+  },
+  layout: 'fullscreen',
+  decorators: [
+    (story, context) => {
+      const { globals } = context
+      applyTheme(globals.theme)
+      return {
+        components: { story, DefaultLayout },
+        template: `
                   <DefaultLayout>
                     <story/>
-                  </DefaultLayout>`,
-            };
-        },
-    ],
-};
+                  </DefaultLayout>
+                `,
+      }
+    },
+  ],
+}
 
-export default preview;
+export default preview

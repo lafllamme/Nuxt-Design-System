@@ -1,48 +1,48 @@
-<script setup lang="ts">
-import {SplitterGroup, SplitterPanel, SplitterResizeHandle} from 'radix-vue'
+<script lang="ts" setup>
+import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'radix-vue'
 </script>
 
 <template>
-  <div class="bg-gradient-to-br p-4 rounded-t-lg from-teal9 to-green9 w-full relative items-center justify-center flex">
-    <div class="w-full h-64 px-8 text-green9 font-medium text-sm">
+  <div class="relative w-full flex items-center justify-center rounded-t-lg from-teal9 to-green9 bg-gradient-to-br p-4">
+    <div class="h-64 w-full px-8 text-sm text-green9 font-medium">
       <SplitterGroup
-          id="splitter-group-1"
-          direction="horizontal"
+        id="splitter-group-1"
+        direction="horizontal"
       >
         <SplitterPanel
-            id="splitter-group-1-panel-1"
-            :min-size="20"
-            class="bg-white rounded-xl flex items-center justify-center"
+          id="splitter-group-1-panel-1"
+          :min-size="20"
+          class="bg-white flex items-center justify-center rounded-xl"
         >
           Panel A
         </SplitterPanel>
         <SplitterResizeHandle
-            id="splitter-group-1-resize-handle-1"
-            class="w-2"
+          id="splitter-group-1-resize-handle-1"
+          class="w-2"
         />
         <SplitterPanel
-            id="splitter-group-1-panel-2"
-            :min-size="20"
+          id="splitter-group-1-panel-2"
+          :min-size="20"
         >
           <SplitterGroup
-              id="splitter-group-2"
-              direction="vertical"
+            id="splitter-group-2"
+            direction="vertical"
           >
             <SplitterPanel
-                id="splitter-group-2-panel-1"
-                :min-size="20"
-                class="bg-white rounded-xl flex items-center justify-center"
+              id="splitter-group-2-panel-1"
+              :min-size="20"
+              class="bg-white flex items-center justify-center rounded-xl"
             >
               Panel B
             </SplitterPanel>
             <SplitterResizeHandle
-                id="splitter-group-2-resize-handle-1"
-                class="h-2"
+              id="splitter-group-2-resize-handle-1"
+              class="h-2"
             />
             <SplitterPanel
-                id="splitter-group-2-panel-2"
-                :min-size="20"
-                class="bg-white rounded-xl flex items-center justify-center"
+              id="splitter-group-2-panel-2"
+              :min-size="20"
+              class="bg-white flex items-center justify-center rounded-xl"
             >
               Panel C
             </SplitterPanel>

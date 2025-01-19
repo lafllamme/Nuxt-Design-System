@@ -1,88 +1,36 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue'
+import {
+  colors,
+  type ColorScale,
+  colorScales,
+  DefaultColor,
+  generateScale,
+  safelist,
+  sortEntries,
+} from 'assets/uno/scales'
+import { computed, ref } from 'vue'
 
-// Define an interface for the scale structure
-interface ColorScale {
-  [key: string]: string[]
-}
+// TODO: Move all this shit into a helper
 
-// Define all colors from the presetRadix palette
-const colors: string[] = [
-  'gray',
-  'mauve',
-  'slate',
-  'sage',
-  'olive',
-  'sand',
-  'gold',
-  'bronze',
-  'brown',
-  'yellow',
-  'amber',
-  'orange',
-  'tomato',
-  'red',
-  'ruby',
-  'crimson',
-  'pink',
-  'plum',
-  'purple',
-  'violet',
-  'iris',
-  'indigo',
-  'blue',
-  'cyan',
-  'teal',
-  'jade',
-  'green',
-  'grass',
-  'lime',
-  'mint',
-  'sky',
-]
+/**
+ * Returns a computed object with all color palettes
+ * The object is sorted alphabetically by key
+ */
+const palettes = computed<ColorScale>(() => {
+  const base = generateScale('bg', colors, true)
+  return sortEntries(base) as ColorScale
+})
 
-// TODO: Add a function to generate a scale for each color within helper
-
-// Generate a class scale for each color and scale from 1 to 12
-// Extend palette to include alpha variants
-function generateScale(prefix: string, colors: string[] | string, includeAlpha = false): ColorScale {
-  if (typeof colors === 'string') {
-    const baseScale = Array.from({ length: 12 }, (_, i) => `${prefix}-${colors}-${i + 1}`)
-    const alphaScale = includeAlpha
-      ? Array.from({ length: 12 }, (_, i) => `${prefix}-${colors}-${i + 1}A`)
-      : []
-    return includeAlpha
-      ? { [colors]: baseScale, [`${colors}A`]: alphaScale }
-      : { [colors]: baseScale }
-  }
-  else {
-    return colors.reduce((color: ColorScale, palette: string) => {
-      const baseScale = Array.from({ length: 12 }, (_, i) => `${prefix}-${palette}-${i + 1}`)
-      const alphaScale = includeAlpha
-        ? Array.from({ length: 12 }, (_, i) => `${prefix}-${palette}-${i + 1}A`)
-        : []
-      if (includeAlpha) {
-        color[palette] = baseScale
-        color[`${palette}A`] = alphaScale
-      }
-      else {
-        color[palette] = baseScale
-      }
-      return color
-    }, {})
-  }
-}
-
-// Reactive reference for scales
-const palettes = ref<ColorScale>(generateScale('bg', colors, true)) // Includes alpha variants
 const grayScale = ref<ColorScale>(generateScale('color', colors[0], true))
-const rings = ref<ColorScale>(generateScale('focus:ring', 'red', true))
 
-// Reactive reference for the container background
+// Container background
 const containerBackground = ref('')
 const backgroundTimer = ref<NodeJS.Timeout | null>(null)
 
-// Function to update container background and set a timeout for reset
+/**
+ * Change the background color of the container
+ * @param newBackground
+ */
 function changeBackground(newBackground: string) {
   containerBackground.value = newBackground
   if (backgroundTimer.value)
@@ -92,53 +40,88 @@ function changeBackground(newBackground: string) {
   }, 10000)
 }
 
+/**
+ * Generate a scale of text colors based on the gray scale
+ * @param grayScale - The gray scale color scale
+ * This is used for the descriptive text in each button
+ */
 const grades = computed(() => {
-  const levels = [...grayScale.value.gray].reverse() // Reverse levels for highest visibility
-  const repeats = [3, 3, 3, 3] // Repeat counts for each group
-
-  return repeats.flatMap((count, idx) => {
-    const levelIndex = idx === 2 ? levels.length - 2 : idx === 3 ? levels.length - 1 : idx
-    return Array.from({ length: count }).fill(levels[levelIndex])
-  })
+  return colorScales(grayScale.value.gray)
 })
 
-const focusRings = computed(() => {
-  const levels = [...rings.value.red] // Use the gray focus:ring classes directly
-  return Array.from({ length: 12 }, (_, i) => levels[i % levels.length]) // Cycle through levels
-})
+const styles = {
+  text: {
+    [DefaultColor.Black]: 'text-pureWhite',
+    [DefaultColor.White]: 'text-pureBlack',
+  },
+  focus: {
+    [DefaultColor.Black]: 'focus:ring-pureWhite',
+    [DefaultColor.White]: 'focus:ring-pureBlack',
+    default: 'focus:ring-pureBlack',
+  },
+}
+
+function getStyles(palette: string, type: string, i?: number) {
+  if (type === 'text' && i !== undefined) {
+    return styles.text[palette] ?? grades.value[i] ?? ''
+  }
+  else if (type === 'focus') {
+    // Styles for buttons (focus rings)
+    return styles.focus[palette] ?? styles.focus.default
+  }
+  return '' // Default fallback
+}
 
 watchEffect(() => {
-  console.debug('TextColor =>', grayScale.value)
-  console.debug('Palettes =>', palettes.value)
-  console.debug('Focus Rings =>', focusRings.value)
+  consola.info('Palettes =>', toRaw(palettes.value))
+  consola.info('Safelist =>', safelist)
+  // check if safe list contains 'bg-black'
+  consola.info('Safe list contains bg-black-1A =>', safelist.includes('bg-black-1A'))
+  // Find position of 'bg-black' in safe list
+  consola.info('Position of bg-black-7A in safe list =>', safelist.indexOf('bg-black-7A'))
 })
 </script>
 
 <template>
   <div>
     <div
-      :class="containerBackground"
-      class="overflow-x-hidden p-4 text-xl font-extrabold tracking-tight font-sans antialiased transition-colors duration-700"
+      :class="
+        useClsx(
+          containerBackground,
+          'font-sans text-xl font-extrabold tracking-tight antialiased',
+          'overflow-x-hidden p-4',
+          'transition-colors duration-700',
+        )"
     >
       <!-- Iterate over colors and scales -->
-      <div class="mb-4 bg-amber-7A">
-        This works as expected
-      </div>
-      <div class="grid grid-cols-3 justify-around gap-4">
+      <div
+        :class="useClsx('grid grid-cols-3 justify-around gap-4')"
+      >
         <div
           v-for="(color, palette) in palettes"
           :key="palette"
-          class="space-y-2"
+          :class="useClsx('space-y-2')"
         >
           <button
             v-for="(scale, idx) in color"
-            :class="scale"
-            class="w-full rounded-xl p-4 transition-colors duration-700 focus:outline-none focus:ring-4 focus:ring-black"
+            :key="`${palette}-${idx}`"
+            :class="[
+              getStyles(palette as string, 'focus'),
+              useClsx(
+                scale,
+                'focus:outline-none focus:ring-4',
+                'w-full rounded-xl p-4',
+                'transition-colors duration-700',
+              )]"
             @focus="changeBackground(scale)"
           >
-            <span :class="grades[idx]">{{ scale }}</span>
+            <span
+              :class="getStyles(palette as string, 'text', idx)"
+            >
+              {{ scale }}
+            </span>
           </button>
-          <div class="spacer h-20 w-full" />
+          <div :class="useClsx('spacer h-20 w-full')" />
         </div>
       </div>
     </div>

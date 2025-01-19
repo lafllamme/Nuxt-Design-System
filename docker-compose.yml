@@ -20,6 +20,7 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV:-development}
       - HOST=${HOST:-0.0.0.0}
+      - SKIP_UPDATE=${SKIP_UPDATE:-false}
 
 volumes:
   node_modules:

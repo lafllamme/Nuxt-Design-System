@@ -1,0 +1,46 @@
+//TODO: Add the font-family to unoCSS config to prevent warn message
+
+@font-face {
+  font-family: 'Chopin Light';
+  src: url('../../assets/fonts/Chopin-Trial-Light.otf') format('opentype');
+  font-weight: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Chopin Medium';
+  src: url('../../assets/fonts/Chopin-Trial-Medium.otf') format('opentype');
+  font-weight: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Chopin Regular';
+  src: url('../../assets/fonts/Chopin-Trial-Regular.otf') format('opentype');
+  font-weight: auto;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Chopin SemiBold';
+  src: url('../../assets/fonts/Chopin-Trial-SemiBold.otf') format('opentype');
+  font-weight: auto;
+  font-style: normal;
+}
+
+
+.font-chopin-light {
+  font-family: 'Chopin Light', sans-serif;
+}
+
+.font-chopin-regular {
+  font-family: 'Chopin Regular', sans-serif;
+}
+
+.font-chopin-medium {
+  font-family: 'Chopin Medium', sans-serif;
+}
+
+.font-chopin-semibold {
+  font-family: 'Chopin SemiBold', sans-serif;
+}

@@ -1,123 +1,125 @@
 import {Meta} from "@storybook/blocks";
 
-<Meta title="Nuxt Design System 🎨"/>
+<Meta title="Variations & States 🕵🏼‍♀️"/>
 
-# Welcome to the Nuxt Design System
+# Complete Overview: Structure of the Design System
 
-The **Nuxt Design System** is a cutting-edge framework built with the power of **Nuxt 3**, **Vue 3**, **UnoCSS**, and **Radix UI**. It combines efficiency, customization, and modern design principles, allowing you to create stunning web applications with ease. 🚀
-
----
-
-## Why Nuxt Design System?
-
-The Nuxt Design System leverages:
-
-- **[UnoCSS](https://github.com/unocss/unocss):** The instant on-demand Atomic CSS engine.
-- **[Radix UI](https://www.radix-ui.com):** A library of accessible and customizable UI components.
-- **[Radix Colors](https://www.radix-ui.com/colors):** Beautiful, accessible color palettes designed for modern UI.
-
-These tools are seamlessly integrated into the Nuxt 3 ecosystem, offering unparalleled flexibility and simplicity. 🎨
+The **Nuxt Design System** can be extended to include various **component states**, advanced **color variations**, and additional **utility classes**. Below is a structured summary that highlights how to organize colors, typography, spacing, borders, shadows, animations, and custom token-based classes — all in **one cohesive design system**.
 
 ---
 
-## Getting Started
+## 1. Color System
 
-To start using the Nuxt Design System, follow these steps:
+We define a **color system** subdivided into four main categories, complemented by status states and neutral colors:
 
-1. **Install the required packages:**
+- **Primary:** Main brand color.  
+Examples: Buttons, links, and primary actions.
+- **Secondary:** Supporting colors.  
+Examples: Secondary buttons, informative sections, or complementary accents.
+- **Tertiary:** Accent colors.  
+Examples: Highlights, emphasis for certain UI elements.
+- **Quaternary:** Additional supporting colors.  
+Examples: Subtle backgrounds and secondary actions.
+- **Neutral:** Grays and background colors.  
+Examples: Text elements, disabled states, and general backgrounds.
+- **States:** Status-dependent color variations for interactions.
+- `-hover`: Hover state
+- `-active`: Active state
+- `-focus`: Focus state
+- `-disabled`: Disabled state
+- **Utility Colors:** Feedback or alert colors.  
+Examples: `$success`, `$warning`, `$error`, `$info`
 
-```bash
-pnpm install unocss @radix-ui/colors
-```
-
-2. **Configure UnoCSS in your `nuxt.config.ts`:**
-
-```js
-export default defineNuxtConfig({
-  modules: ["@unocss/nuxt"],
-  unocss: {
-    presets: [
-      require("@unocss/preset-uno")(),
-      require("@unocss/preset-attributify")(),
-    ],
-  },
-});
-```
-
-3. **Import and use Radix Colors:**
-
-```css
-@import "@radix-ui/colors";
-```
+> **Tip:** These categories ensure clarity and consistency across complex interfaces.
 
 ---
 
-## Features at a Glance
+## 2. Typography System
 
-### 1. Atomic CSS with UnoCSS
-Easily style your components with an intuitive and performant Atomic CSS approach. UnoCSS provides a delightful developer experience with:
+The typography system is defined by **font sizes**, **weights**, and **line heights**:
 
-- **Dynamic utilities** for responsive design.
-- **Custom themes** for tailored styling.
-- **Preset integrations** to expand functionality.
+- **Font-Sizes:** `$small`, `$medium`, `$large`, `$xl`, etc.  
+Examples: Small labels, headings, and body text.
+- **Font-Weights:** `$light`, `$regular`, `$bold`  
+Examples: Standard, bold, or lighter text uses.
+- **Line-Heights:** `$tight`, `$normal`, `$loose`  
+Controls readability and spacing in paragraphs or headings.
+- **Letter-Spacing:** `$tight`, `$normal`, `$wide`
 
-Learn more about UnoCSS [here](https://github.com/unocss/unocss). ✨
-
-### 2. Accessible Components with Radix UI
-Radix UI ensures accessibility and customization, offering:
-
-- Keyboard-friendly components.
-- Full theming support.
-- Accessibility by default.
-
-Explore Radix UI [here](https://www.radix-ui.com). 🛠️
-
-### 3. Modern Color Palettes with Radix Colors
-Use Radix Colors for vibrant, accessible, and consistent color themes. Examples include:
-
-- **Teal:** `--teal-9`
-- **Gray:** `--gray-3`
-
-Check out the full palette [here](https://www.radix-ui.com/colors). 🌈
+> **Remember:** Consistent typography is crucial for readability and brand identity.
 
 ---
 
-## Styling Guidelines
+## 3. Spacing
 
-Our design system focuses on a **monochrome-minimalist** aesthetic. Below are key styling tips:
+Standardized spacing for **margins**, **paddings**, and **grid gutters**:
 
-- **Background:** `--color-background`
-- **Primary Accent (Teal):** `--teal-9`
-- **Neutral Palette:** `--gray-5`, `--gray-9`, `--gray-12` for text
-
----
-
-## Explore the Ecosystem
-
-### Community & Documentation
-- **[Discord](https://discord.gg/storybook):** Join the conversation.
-- **[GitHub](https://github.com/nuxt):** Contribute to the project.
-- **[Radix UI Docs](https://www.radix-ui.com/docs):** Learn about components.
-- **[UnoCSS Docs](https://unocss.dev):** Explore the CSS engine.
+- **Paddings/Margins:** `$spacing-1`, `$spacing-2`, ..., `$spacing-10`  
+A scalable set of spacing tokens (e.g., `4px`, `8px`, `16px`, ...).
+- **Grid-Gutters:** `$gutter-small`, `$gutter-medium`, `$gutter-large`  
+Helps maintain consistent alignment and layout across columns.
 
 ---
 
-<div className="card">
-    <h3>A Minimal Teal Card</h3>
-    <p>
-        This is an example card using our new color palette. Notice the subtle shadow from <code>var(--gray-a5)</code>.
-    </p>
-    <button className="button">Primary Action</button>
-</div>
+## 4. Borders
 
-<div className="divider"></div>
+Border tokens for **stroke widths** and **border radii**:
+
+- **Border-Widths:** `$thin`, `$normal`, `$thick`  
+Examples: Input fields, cards, and other containers.
+- **Border-Radius:** `$none`, `$sm`, `$md`, `$lg`, `$full`  
+Examples: Rounded buttons or subtly rounded corners on cards.
+
+---
+
+## 5. Shadows
+
+Utilize shadows for **hover** and **active** states:
+
+- **Box-Shadows:** `$shadow-small`, `$shadow-medium`, `$shadow-large`  
+Examples: Modals, active buttons, and cards.
+
+Shadows help give depth and emphasis to interactive UI elements.
+
+---
+
+## 6. Animations
+
+Animations and transition settings for smooth user experiences:
+
+- **Transition-Durations:** `$fast`, `$normal`, `$slow`  
+Examples: Hover transitions and fade effects.
+- **Transition-Timings:** `$ease`, `$ease-in`, `$ease-out`  
+Examples: Animation curves for toggling components or modals.
+- **Keyframes:** Reusable animations (e.g., loading spinners, fade-in effects).
+
+---
+
+## 7. Custom Classes
+
+All tokens should use a **`$` syntax** for UnoCSS integration. Examples:
+
+- **Colors:**
+- `bg-$primary`, `bg-$primary-hover`, `text-$neutral-disabled`
+- **Typography:**
+- `font-$small`, `font-$medium-bold`
+- **Spacing:**
+- `p-$spacing-2`, `m-$spacing-4`
+- **Borders:**
+- `border-$thin`, `rounded-$lg`
+- **Shadows:**
+- `shadow-$medium`
+
+> **Ready to dive in?** Start by defining your **colors** using Radix Colors as a base, then map them to your `$primary`, `$secondary`, `$tertiary`, `$quaternary`, `$neutral`, etc.
+
+---
+
 
 <div style={{textAlign: "center", marginTop: "48px", fontSize: "14px", whiteSpace: "nowrap",}}>
     <a href="https://github.com/Lafllamme" target="_blank">
         Made with ❤️ by <span>Lafllamme</span>
     </a>
 </div>
-
 
 <style>
     {`
@@ -328,11 +330,9 @@ Our design system focuses on a **monochrome-minimalist** aesthetic. Below are ke
                             pre span {
                               color: var(--teal-12) !important;
                             }
-
                             pre span:hover {
                               color: orange !important; /* Or use a custom variable like var(--orange-9) */
                             }
-
 
                             /* Buttons using teal accent */
                             .button {
