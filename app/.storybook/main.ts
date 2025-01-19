@@ -1,6 +1,4 @@
 import type { StorybookConfig } from '@storybook-vue/nuxt'
-// @ts-expect-error -- ignoring missing module type
-import { mergeConfig } from 'vite'
 
 const config: StorybookConfig = {
   stories: [
@@ -19,15 +17,15 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  async viteFinal(config) {
-    return mergeConfig(config, {
-      resolve: {
-        alias: {
-          vue: 'vue/dist/vue.esm-bundler.js',
-        },
-      },
-      devtools: true,
-    })
-  },
+  /* async viteFinal(config) {
+        return mergeConfig(config, {
+          resolve: {
+            alias: {
+              vue: 'vue/dist/vue.esm-bundler.js',
+            },
+          },
+          devtools: true,
+        })
+      }, */
 }
 export default config
