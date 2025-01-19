@@ -1,6 +1,13 @@
 <script lang="ts" setup>
-import type { ColorScale } from 'assets/uno/scales'
-import { colors, colorScales, generateScale, safelist, sortEntries } from 'assets/uno/scales'
+import {
+  colors,
+  type ColorScale,
+  colorScales,
+  DefaultColor,
+  generateScale,
+  safelist,
+  sortEntries,
+} from 'assets/uno/scales'
 import { computed, ref } from 'vue'
 
 // TODO: Move all this shit into a helper
@@ -15,7 +22,6 @@ const palettes = computed<ColorScale>(() => {
 })
 
 const grayScale = ref<ColorScale>(generateScale('color', colors[0], true))
-const rings = ref<ColorScale>(generateScale('focus:ring', 'red', true))
 
 // Container background
 const containerBackground = ref('')
@@ -43,66 +49,79 @@ const grades = computed(() => {
   return colorScales(grayScale.value.gray)
 })
 
+const styles = {
+  text: {
+    [DefaultColor.Black]: 'text-pureWhite',
+    [DefaultColor.White]: 'text-pureBlack',
+  },
+  focus: {
+    [DefaultColor.Black]: 'focus:ring-pureWhite',
+    [DefaultColor.White]: 'focus:ring-pureBlack',
+    default: 'focus:ring-pureBlack',
+  },
+}
+
+function getStyles(palette: string, type: string, i?: number) {
+  if (type === 'text' && i !== undefined) {
+    return styles.text[palette] ?? grades.value[i] ?? ''
+  }
+  else if (type === 'focus') {
+    // Styles for buttons (focus rings)
+    return styles.focus[palette] ?? styles.focus.default
+  }
+  return '' // Default fallback
+}
+
 watchEffect(() => {
   consola.info('Palettes =>', toRaw(palettes.value))
   consola.info('Safelist =>', safelist)
   // check if safe list contains 'bg-black'
-  consola.info('Safe list contains bg-blackA-1 =>', safelist.includes('bg-blackA-1'))
+  consola.info('Safe list contains bg-black-1A =>', safelist.includes('bg-black-1A'))
   // Find position of 'bg-black' in safe list
-  consola.info('Position of bg-black in safe list =>', safelist.indexOf('bg-black-7A'))
+  consola.info('Position of bg-black-7A in safe list =>', safelist.indexOf('bg-black-7A'))
 })
 </script>
 
 <template>
   <div>
     <div
-      :class="containerBackground"
-      class="overflow-x-hidden p-4 text-xl font-extrabold tracking-tight font-sans antialiased transition-colors duration-700"
+      :class="
+        useClsx(
+          containerBackground,
+          'font-sans text-xl font-extrabold tracking-tight antialiased',
+          'overflow-x-hidden p-4',
+          'transition-colors duration-700',
+        )"
     >
       <!-- Iterate over colors and scales -->
-      <div class="mb-4 bg-amber-7A">
-        This works as expected
-      </div>
-      <div class="bg-blackA-1">
-        BLACK-A1
-      </div>
-      <div class="bg-blackA-5">
-        BLACK-A5
-      </div>
-      <div class="bg-blackA-6">
-        BLACK-A6
-      </div>
-      <div class="bg-blackA-7">
-        BLACK-A7
-      </div>
-      <div class="bg-blackA-8">
-        BLACK-A8
-      </div>
-      <div class="bg-blackA-9">
-        BLACK-A9
-      </div>
-      <div class="bg-blackA-10">
-        BLACK-10A
-      </div>
-      <div class="bg-blackA-12">
-        BLACK-12A
-      </div>
-      <div class="grid grid-cols-3 justify-around gap-4">
+      <div
+        :class="useClsx('grid grid-cols-3 justify-around gap-4')"
+      >
         <div
           v-for="(color, palette) in palettes"
           :key="palette"
-          class="space-y-2"
+          :class="useClsx('space-y-2')"
         >
           <button
             v-for="(scale, idx) in color"
             :key="`${palette}-${idx}`"
-            :class="scale"
-            class="focus:ring-black w-full rounded-xl p-4 transition-colors duration-700 focus:outline-none focus:ring-4"
+            :class="[
+              getStyles(palette as string, 'focus'),
+              useClsx(
+                scale,
+                'focus:outline-none focus:ring-4',
+                'w-full rounded-xl p-4',
+                'transition-colors duration-700',
+              )]"
             @focus="changeBackground(scale)"
           >
-            <span :class="grades[idx]">{{ scale }}</span>
+            <span
+              :class="getStyles(palette as string, 'text', idx)"
+            >
+              {{ scale }}
+            </span>
           </button>
-          <div class="spacer h-20 w-full" />
+          <div :class="useClsx('spacer h-20 w-full')" />
         </div>
       </div>
     </div>
