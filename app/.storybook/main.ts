@@ -1,6 +1,9 @@
 import type { StorybookConfig } from '@storybook-vue/nuxt'
 import { mergeConfig } from 'vite'
 
+/**
+ * @type {import('@storybook-vue/nuxt').StorybookConfig}
+ */
 const config: StorybookConfig = {
   stories: [
     '../stories',
